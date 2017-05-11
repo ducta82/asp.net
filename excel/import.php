@@ -37,7 +37,6 @@ if(isset($_POST["Import"])){
 				           	$sql = "INSERT into lai_suat_tg (TT,Name,ShortName,Lai_suat,Loai_TG) values('$emapData[0]','$emapData[1]','$emapData[2]','$emapData[3]','$emapData[4]')";
 				         	//we are using mysql_query function. it returns a resource on true else False on error
 				          	$result = mysqli_query($conn,$sql);
-				          	//print_r("result tg =".$result);
 							if(! $result ){
 								echo "<script type=\"text/javascript\">
 										alert(\"Upload lãi xuất tỷ giá không thành công, xin thử lại.\");
@@ -63,13 +62,13 @@ if(isset($_POST["Import"])){
 					        $sql = "INSERT into lai_suat_tv (TT, Name, Lai_suat_tv) values ('$emapData[0]','$emapData[1]','$emapData[2]')";
 					        $result1 = mysqli_query($conn,$sql);
 			         		//print_r("result tv=".$result);
-							/*if(! $result1 )
+							if(! $result1 )
 							{
 								echo "<script type=\"text/javascript\">
 										alert(\"Upload lãi xuất tiền vay không thành công, xin thử lại.\");
 										window.location = \"nhap_lieu.php\"
 									</script>";
-							}*/
+							}
 			         	}
 			         }
 			         fclose($file);
@@ -86,7 +85,7 @@ if(isset($_POST["Import"])){
 			         {
 			         	if(is_numeric($emapData[0] )){
 				          //It wiil insert a row to our subject table from our csv file`
-				           $sql = "INSERT into 	ty_gia (TT, Name, Gia_mua,Gia_ban) values('$emapData[0]','$emapData[1]','$emapData[2]','$emapData[3]')";
+				           $sql = "INSERT into 	ty_gia (TT, Name, Gia_mua, Gia_ban) values('$emapData[0]','$emapData[1]','$emapData[2]','$emapData[3]')";
 				         //we are using mysql_query function. it returns a resource on true else False on error
 				          $result2 = mysqli_query($conn,$sql );
 							if(! $result2 )
