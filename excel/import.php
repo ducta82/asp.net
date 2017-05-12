@@ -57,7 +57,7 @@ if(isset($_POST["Import"])){
 					}
 			         while (($emapData = fgetcsv($file, 10000, ",")) !== FALSE)
 			         {//INSERT INTO lai_suat_tg (TT, Name, ShortName, Lai_suat, Loai_TG) VALUES (1,'hehe','hihi',20,2)
-			     		print_r($emapData);
+			     		//print_r($emapData);
 			         	if(is_numeric($emapData[0])){
 					        $sql = "INSERT into lai_suat_tv (TT, Name, Lai_suat_tv) values ('$emapData[0]','$emapData[1]','$emapData[2]')";
 					        $result1 = mysqli_query($conn,$sql);

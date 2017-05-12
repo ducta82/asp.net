@@ -1,14 +1,6 @@
 <?php
-
+require 'db.php';
 require_once('PHPExcel-develop/Classes/PHPExcel.php');
-	function home_url(){
-	  return sprintf(
-	    "%s://%s%s",
-	    isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off' ? 'https' : 'http',
-	    $_SERVER['SERVER_NAME'],
-	    $_SERVER['REQUEST_URI']
-	  );
-	}
 	if(!function_exists('get_file_csv')){
 		function get_file_csv($tmp_name,$beatifulname){
 			$fullname = pathinfo($beatifulname);
@@ -41,5 +33,12 @@ require_once('PHPExcel-develop/Classes/PHPExcel.php');
 				return $file;
 		}
 	}
-	
+	function get_all_data($name){
+		if($name != ''){
+			$SQLSELECT = "SELECT * FROM $name ";
+			$result_set =  mysqli_query($conn,$SQLSELECT);
+		print_r($result_set);exit();
+			return $result_set;
+		}
+	}
 ?>

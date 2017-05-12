@@ -2,5 +2,8 @@
  Options +SymLinksIfOwnerMatch
  RewriteEngine On
 #import
+	RewriteBase /
+	RewriteCond %{THE_REQUEST} ^.*/index\.php 
+	RewriteRule ^(.*)index.php$ /$1 [R=301,L] 
     RewriteRule ^redirect /import.php [L,QSA]
 </IfModule>

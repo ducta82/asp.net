@@ -31,7 +31,10 @@ body {
     height: 100%;
     /* The html and body elements cannot have any padding or margin. */
 }
-
+body{
+  margin: 8px;
+  margin-right: 0;
+}
 /* Wrapper for page content to push down footer */
 #wrap {
     min-height: 100%;
@@ -75,8 +78,101 @@ body {
 .footer-links li:first-child {
   padding-left: 0;
 }
-
-
+/*index*/
+*{
+  font: normal normal bold normal 16px / normal Arial, Helvetica, sans-serif;
+}
+.red{
+  color: #ff0000;
+}
+h2,h3{
+  font-weight: bold;
+  text-transform: uppercase;
+  margin: 0;
+}
+h2{
+    color: rgb(204, 51, 0);
+    text-align: center;
+    font-size: 32px;
+    line-height: 45px;
+}
+h3.date, h3.date a{
+  color: rgb(0, 0, 204);
+  text-align: center;
+  font-size: 24px;
+  line-height: 30px;
+}
+h3.table-name{
+  margin-top: 6px;
+  font-size: 24px;
+  color: #0000FF;
+}
+h3.table-name strong{
+  font-size: 24px;
+}
+.TG_table{
+  background-color:#DEBA84;
+  border: solid 3px #DEBA84;
+  font-size: 15px;
+  text-align: center;
+}
+.TG_table>tbody>tr>th, .TG_table>tbody>tr>td, .TG_table>thead>tr>th{
+  padding: 0;
+  border: 1px solid #deba84;
+  text-align: center;
+  font-size: 15pt;
+}
+.TG_table>tbody>tr>td{
+  font-size: 17pt;
+  font-weight: normal;
+  color: #8C4510;
+}
+.yeallow{
+  background-color: #FFFF99;
+}
+.white{
+  background-color: #FFF7E7;
+}
+.table-responsive{
+    max-height: 560px;
+    overflow: hidden;
+}
+.text-bottom{
+  background-color: #CC0000;
+  color: #fff;
+  height: 36px;
+  width: 100%;
+  overflow: hidden;
+  line-height: 36px;
+}
+.right-widget{
+  padding: 0;
+}
+.LSTG_table, .TGUSD_table, .LSTV_table{
+    background-color: #CC0000;
+    border: solid 3px #942512;
+    font-size: 15px;
+    text-align: center;
+}
+.LSTV_table>thead>tr>td,.LSTG_table>thead>tr>td, .TGUSD_table>thead>tr>td{
+  border: none;
+  height: 32px;
+  color: #FFFFFF;
+  font-weight: bold;
+}
+.TGUSD_table>thead>tr.title_TGUSD_table>td, .LSTV_table>thead>tr.title_TGUSD_table>td,.LSTG_table>thead>tr.title_TGUSD_table>td{
+  font-size: 12px;
+  font-weight: bold;
+}
+.TGUSD_table>tbody>tr>td, .LSTV_table>tbody>tr>td,.LSTG_table>tbody>tr>td{
+  font-size: 17pt;
+  font-weight: normal;
+  color: #8C4510;
+}
+@keyframes scorll {
+  0%    { top: 0; }
+  100%  { top: -200%; }
+}
 /* Large desktop */
 @media (min-width: 1200px) {
     #form-login {

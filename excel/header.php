@@ -11,26 +11,27 @@
 		<meta name="description" content="Import Excel File To MySql Database Using php">
 		<?php $base_url = 'http://'.$_SERVER['SERVER_NAME'].'/';?>
 		<link rel="stylesheet" href="<?php echo $base_url;?>css/bootstrap.min.css">
-		<link rel="stylesheet" href="<?php echo $base_url;?>css/bootstrap-responsive.min.css">
 		<link rel="stylesheet" href="<?php echo $base_url;?>css/bootstrap-custom.css">
-
-
+		<script type="text/javascript" src="<?php echo $base_url;?>js/jquery-1.9.1.min.js"></script>
+		<script type="text/javascript" src="<?php echo $base_url;?>js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="<?php echo $base_url;?>js/html5shiv.js"></script>
+		<script type="text/javascript"><!--
+		/*function exec_refresh() {
+		    //window.status = "Đang chuyển tới..." + myvar;
+		    //myvar = myvar + " ."; 1000
+		    var timerID = setTimeout("exec_refresh();", 8000);
+		    if (timeout > 0) {
+		        timeout -= 1;
+		    }
+		    else {
+		        clearTimeout(timerID);
+		        window.status = "";
+		        window.location = "Lai_suat_TG_VND_TC.aspx";
+		    }
+		}
+		//var myvar = "";
+		var timeout = 20;
+		exec_refresh();*/
+		</script>
 	</head>
 	<body>    
-
-	<!-- Navbar
-    ================================================== -->
-
-	<div class="navbar navbar-inverse">
-		<div class="navbar-inner">
-			<div class="container"> 
-				<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-				</a>
-				<a class="brand" href="#">Import Excel To Mysql Database Using PHP</a>
-				
-			</div>
-		</div>
-	</div>
