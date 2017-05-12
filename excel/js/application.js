@@ -1,23 +1,18 @@
-// NOTICE!! DO NOT USE ANY OF THIS JAVASCRIPT
-// IT'S ALL JUST JUNK FOR OUR DOCS!
-// ++++++++++++++++++++++++++++++++++++++++++
-
-!function ($) {
-
-  $(function(){
-
-    var $window = $(window)
-
-    $('.button-loading')
-      .click(function () {
-        var btn = $(this)
-        btn.button('loading')
-        setTimeout(function () {
-          btn.button('reset')
-        }, 3000)
-      })
-  })
-
-// Modified from the original jsonpi https://github.com/benvinegar/jquery-jsonpi
-
-}(window.jQuery)
+//srcoll table
+function scrolling() {
+  $('#scrollup table tbody').animate({
+      top: '-=' + $('#scrollup table tr:last').height()
+    },
+    1000,
+    'linear',
+    function() {
+      var offset = $('#scrollup table tr:last').offset().top;
+      console.log($('#scrollup table tr:last'));
+      //$('#scrollup table tbody').css("top", 0);
+      $('#scrollup table tr:last').after($('#scrollup table tbody tr:first').detach());
+    }
+  );
+}
+$(document).ready(function() {
+  setInterval('scrolling()', 1000)
+});

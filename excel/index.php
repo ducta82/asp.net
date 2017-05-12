@@ -16,7 +16,7 @@
 							<h3 class="table-name">LÃI SUẤT HUY ĐỘNG TIỀN GỬI <strong class="red">VNĐ ĐỐI VỚI CÁ NHÂN</strong></h3>
 						</div>
 					</div>
-					<div class="table-responsive">
+					<div id="scrollup" class="table-responsive">
 						<table class="table table-bordered TG_table">
 							<thead>
 								<tr style="color:White;background-color:#A55129;font-family:Arial;font-weight:bold;height:30px;">
@@ -25,12 +25,7 @@
 									<th scope="col">Lãi suất năm</th>
 									<th scope="col">Lãi suất tháng</th>
 								</tr>
-							</thead>1- Cá nhân VND
-2- Tổ chức VND
-3- Cá nhân USD
-4- Tổ chức USD
-5- Tich lũy Tổ chức
-
+							</thead>
 							<?php
 								$SQLSELECT = "SELECT * FROM lai_suat_tg ORDER BY Lai_suat asc";
 								$result_set =  mysqli_query($conn,$SQLSELECT);
@@ -43,9 +38,8 @@
 									$cls = $i%2 == 0 ? 'white' : 'yeallow';
 									$LS_nam =number_format($row['Lai_suat']/12, 4, '.','') ;
 									$loai_TG = $row['Loai_TG'];
-									print_r('TG = '.$row['Loai_TG']);
-									$VND = $loai_TG == 1 || $loai_TG == 2 ? $row['Lai_suat'] : '----';
-									$USD = $loai_TG == 3 || $loai_TG == 4 ? $row['Lai_suat'] : '----';
+									$VND = $loai_TG == 1 || $loai_TG == 2 ? $row['Lai_suat'].'%' : '----';
+									$USD = $loai_TG == 3 || $loai_TG == 4 ? $row['Lai_suat'].'%' : '----';
 									$ky_han .= $row['ShortName'].'</br>';
 									$LS_VND .= $VND.'</br>';
 									$LS_USD .= $USD.'</br>';
@@ -92,17 +86,17 @@
 										<?php } ?>
 												<td>
 													<span>
-														<marquee height="275" direction="up" scrolldelay="300"><?php echo $name; ?></marquee>
+														<marquee height="100%" direction="up" scrolldelay="300"><?php echo $name; ?></marquee>
 													</span>
 												</td>
 												<td>
 													<span>
-														<marquee height="275" direction="up" scrolldelay="300"><?php echo $Gia_mua; ?></marquee>
+														<marquee height="100%" direction="up" scrolldelay="300"><?php echo $Gia_mua; ?></marquee>
 													</span>
 												</td>
 												<td>
 													<span>
-														<marquee height="275" direction="up" scrolldelay="300"><?php echo $Gia_ban; ?></marquee>
+														<marquee height="100%" direction="up" scrolldelay="300"><?php echo $Gia_ban; ?></marquee>
 													</span>
 												</td>
 										</tr>
@@ -125,9 +119,9 @@
 									</thead>
 									<tbody style="background: #99FF66;">
 										<tr>
-											<td colspan="2"><span><?php echo $ky_han; ?></span></td>
-											<td><span><?php echo $LS_VND; ?></span></td>
-											<td><span><?php echo $LS_USD; ?></span></td>
+											<td colspan="2"><marquee height="300" direction="up" scrolldelay="300"><span><?php echo $ky_han; ?></marquee></span></td>
+											<td><marquee height="300" direction="up" scrolldelay="300"><span><?php echo $LS_VND; ?></marquee></span></td>
+											<td><marquee height="300" direction="up" scrolldelay="300"><span><?php echo $LS_USD; ?></marquee></span></td>
 										</tr>
 									</tbody>
 								</table>

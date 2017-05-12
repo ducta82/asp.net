@@ -14,7 +14,7 @@
 		<link rel="stylesheet" href="<?php echo $base_url;?>css/bootstrap-custom.css">
 		<script type="text/javascript" src="<?php echo $base_url;?>js/jquery-1.9.1.min.js"></script>
 		<script type="text/javascript" src="<?php echo $base_url;?>js/bootstrap.min.js"></script>
-		<script type="text/javascript" src="<?php echo $base_url;?>js/html5shiv.js"></script>
+		<script type="text/javascript" src="<?php echo $base_url;?>js/application.js"></script>
 		<script type="text/javascript"><!--
 		/*function exec_refresh() {
 		    //window.status = "Đang chuyển tới..." + myvar;
