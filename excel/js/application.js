@@ -3,7 +3,7 @@ function scrolling() {
   $('#scrollup table tbody').animate({
       top: '-=' + $('#scrollup table tr:last').height()
     },
-    1000,
+    5000,
     'linear',
     function() {
       var offset = $('#scrollup table tr:last').offset().top;
