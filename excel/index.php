@@ -27,7 +27,7 @@
 								</tr>
 							</thead>
 							<?php
-								$SQLSELECT = "SELECT * FROM lai_suat_tg ORDER BY Lai_suat asc";
+								$SQLSELECT = "SELECT * FROM lai_suat_tg ORDER BY ID asc";
 								$result_set =  mysqli_query($conn,$SQLSELECT);
 								$i = 1;
 								$ky_han = '';

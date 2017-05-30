@@ -10,7 +10,7 @@ function db_connect(){
     if (!$conn){
         $conn = mysqli_connect('localhost', 'root', '', 'studentdb') 
                 or die ('Không thể kết nối CSDL');
-        mysqli_set_charset($conn, 'UTF-8');
+        mysqli_set_charset($conn,'utf8');
     }
 }
  
@@ -104,5 +104,10 @@ function db_insert($table, $data = array())
     $sql = "INSERT INTO {$table}($fields) VALUES ({$values})";
      
     // Thực hiện INSERT
+    return db_execute($sql);
+}
+function db_delete_all($table){
+    $sql = "TRUNCATE TABLE {$table}";
+    // Thực hiện TRUNCATE
     return db_execute($sql);
 }

@@ -17,11 +17,16 @@ if (is_submit('add_code_upload'))
      
     // Thực hiện validate
     $code = db_get_code_upload();
-    $error = $date['code'] == $code['code'] ? true : false ;
+    if($code){
+        $error = $data['code'] == $code['code'] ? true : false ;   
+    }else{
+        $error = false;
+    }
      
     // Nếu validate không có lỗi
     if ($error == false)
     {
+        db_delete_all('codeupload');
         if (db_insert('codeupload', $data)){
             ?>
             <script language="javascript">
@@ -35,7 +40,7 @@ if (is_submit('add_code_upload'))
     ?>
     <script language="javascript">
         alert('Mã đang tồn tại, hay nhập mã mới!');
-        //window.location = '<?php echo create_link(base_url('admin'), array('m' => 'user', 'a' => 'codeupload')); ?>';
+        window.location = '<?php echo create_link(base_url('admin'), array('m' => 'user', 'a' => 'codeupload')); ?>';
     </script>
     <?php 
     die();  
@@ -50,7 +55,7 @@ if (is_submit('add_code_upload'))
     <a class="button" onclick="$('#main-form').submit()" href="#">Lưu</a>
     <a class="button" href="<?php echo create_link(base_url('admin')); ?>">Trở về</a>
 </div>
-<form id="main-form" method="post" action="<?php echo create_link(base_url('admin/index.php'), array('m' => 'user', 'a' => 'codeupload')); ?>">
+<form id="main-form" method="post" action="<?php echo create_link(base_url('admin/'), array('m' => 'user', 'a' => 'codeupload')); ?>">
     <input type="hidden" name="request_name" value="add_code_upload"/>
     <label for="code_upload">Nhập code upload mới:</label>
     <input id ="code_upload" type="text" name="codeUpload" value="<?php echo input_post('codeUpload'); ?>">

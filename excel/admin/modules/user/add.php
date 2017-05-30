@@ -22,8 +22,8 @@ if (is_submit('add_user'))
     // Lấy danh sách dữ liệu từ form
     $data = array(
         'username'  => input_post('username'),
-        'password'  => input_post('password'),
-        're-password'  => input_post('re-password'),
+        'password'  => md5(input_post('password')),
+        're-password'  => md5(input_post('re-password')),
         'email'     => input_post('email'),
         'fullname'  => input_post('fullname'),
         'level'     => input_post('level'),
@@ -65,7 +65,7 @@ if (is_submit('add_user'))
     <a class="button" href="<?php echo create_link(base_url('admin'), array('m' => 'user', 'a' => 'list')); ?>">Trở về</a>
 </div>
  
-<form id="main-form" method="post" action="<?php echo create_link(base_url('admin/index.php'), array('m' => 'user', 'a' => 'add')); ?>">
+<form id="main-form" method="post" action="<?php echo create_link(base_url('admin/'), array('m' => 'user', 'a' => 'add')); ?>">
     <input type="hidden" name="request_name" value="add_user"/>
     <table cellspacing="0" cellpadding="0" class="form">
         <tr>
