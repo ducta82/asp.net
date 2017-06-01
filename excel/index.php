@@ -1,6 +1,11 @@
 <?php 
 	include 'header.php';
 ?>	 
+		<script type="text/javascript">
+			  setInterval(function(){
+				window.location = 'TG_VND_TC.php';
+			  }, 150000);
+		</script>
 		<div class="container-fluid">
 			<div class="row" style="margin-top:18px;">
 				<div class="col-xs-12 col-sm-12 col-md-9 col-lg-9" style="padding-left: 0;padding-right: 40px;">
@@ -27,30 +32,24 @@
 								</tr>
 							</thead>
 							<?php
-								$SQLSELECT = "SELECT * FROM lai_suat_tg ORDER BY Lai_suat asc";
+								$SQLSELECT = "SELECT * FROM lai_suat_tg ORDER BY ID asc";
 								$result_set =  mysqli_query($conn,$SQLSELECT);
 								$i = 1;
-								$ky_han = '';
-								$LS_VND = '';
-								$LS_USD = '';
 								while($row = mysqli_fetch_array($result_set,MYSQLI_ASSOC))
 								{
+									if($row['Loai_TG'] == 1){
+
 									$cls = $i%2 == 0 ? 'white' : 'yeallow';
 									$LS_nam =number_format($row['Lai_suat']/12, 4, '.','') ;
-									$loai_TG = $row['Loai_TG'];
-									$VND = $loai_TG == 1 || $loai_TG == 2 ? $row['Lai_suat'].'%' : '----';
-									$USD = $loai_TG == 3 || $loai_TG == 4 ? $row['Lai_suat'].'%' : '----';
-									$ky_han .= $row['ShortName'].'</br>';
-									$LS_VND .= $VND.'</br>';
-									$LS_USD .= $USD.'</br>';
-								?>
-								<tr class="<?php echo $cls;?>">
-									<td><?php echo $i; ?></td>
-									<td style="text-align: left;"><?php echo $row['Name']; ?></td>
-									<td><?php echo $row['Lai_suat'].'%'; ?></td>
-									<td><?php echo $LS_nam.'%'; ?></td>
-								</tr>
-							<?php $i++;} ?>
+									?>
+									<tr class="<?php echo $cls;?>">
+										<td><?php echo $i; ?></td>
+										<td style="text-align: left;"><?php echo $row['Name']; ?></td>
+										<td><?php echo $row['Lai_suat'].'%'; ?></td>
+										<td><?php echo $LS_nam.'%'; ?></td>
+									</tr>
+									<?php $i++; }
+								} ?>
 						</table>
 					</div>
 				</div>
@@ -118,6 +117,25 @@
 		                                </tr>
 									</thead>
 									<tbody style="background: #99FF66;">
+									<?php
+										$SQLSELECT = "SELECT * FROM lai_suat_tg ORDER BY ID asc";
+										$result_set =  mysqli_query($conn,$SQLSELECT);
+										$i = 1;
+										$ky_han = '';
+										$LS_VND = '';
+										$LS_USD = '';
+										while($row = mysqli_fetch_array($result_set,MYSQLI_ASSOC))
+										{
+											$cls = $i%2 == 0 ? 'white' : 'yeallow';
+											$LS_nam =number_format($row['Lai_suat']/12, 4, '.','') ;
+											$loai_TG = $row['Loai_TG'];
+											$VND = $loai_TG == 1 || $loai_TG == 2 ? $row['Lai_suat'].'%' : '----';
+											$USD = $loai_TG == 3 || $loai_TG == 4 ? $row['Lai_suat'].'%' : '----';
+											$ky_han .= $row['ShortName'].'</br>';
+											$LS_VND .= $VND.'</br>';
+											$LS_USD .= $USD.'</br>';
+											$i++;} 
+									?>
 										<tr>
 											<td colspan="2"><marquee height="300" direction="up" scrolldelay="300"><span><?php echo $ky_han; ?></marquee></span></td>
 											<td><marquee height="300" direction="up" scrolldelay="300"><span><?php echo $LS_VND; ?></marquee></span></td>
@@ -132,33 +150,30 @@
 								<table class="table table-bordered LSTV_table">
 									<thead>
 		                                <tr>
-		                                    <td colspan="3">TỶ GIÁ VÀNG / NGOẠI TỆ</td>
+		                                    <td colspan="3">LÃI SUẤT TIỀN VAY</td>
 		                                </tr>
 		                                <tr class="title_TGUSD_table">
-		                                    <td>LOẠI</td>
-		                                    <td>TỶ GIÁ MUA</td>
-		                                    <td>TỶ GIÁ BÁN</td>
+		                                    <td>LOẠI VAY</td>
+		                                    <td>LÃI SUẤT/NĂM</td>
 		                                </tr>
 									</thead>
 									<tbody style="background: #99FF66;">
 										<tr>
 										<?php
-											$SQLSELECT = "SELECT * FROM ty_gia";
-											$result_ty_gia =  mysqli_query($conn,$SQLSELECT);
+											$SQLSELECT = "SELECT * FROM lai_suat_tv";
+											$result_lai_suat_tv =  mysqli_query($conn,$SQLSELECT);
 											$name = '';
-											$Gia_mua = '';
-											$Gia_ban = '';
-											while($row = mysqli_fetch_array($result_ty_gia,MYSQLI_ASSOC))
+											$loai_vay = '';
+											$lai_suat_nam = '';
+											while($row = mysqli_fetch_array($result_lai_suat_tv,MYSQLI_ASSOC))
 											{
-												$name .= $row['Name'].'</br>';
-												$Gia_mua .= $row['Gia_mua'].'</br>';
-												$Gia_ban .= $row['Gia_ban'].'</br>';
+												$loai_vay .= $row['Name'].'</br>';
+												$lai_suat_nam .= $row['Lai_suat_tv'].'</br>';
 											?>
 												
 										<?php } ?>
-												<td><span><?php echo $name; ?></span></td>
-												<td><span><?php echo $Gia_mua; ?></span></td>
-												<td><span><?php echo $Gia_ban; ?></span></td>
+												<td><span><?php echo $loai_vay; ?></span></td>
+												<td><span><?php echo $lai_suat_nam; ?></span></td>
 										</tr>
 									</tbody>
 								</table>

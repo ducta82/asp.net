@@ -11,28 +11,50 @@
 						<legend>Upload file CSV/Excel</legend>
 						<div class="control-group">
 							<div class="control-label">
+								<label>Code upload:</label>
+							</div>
+							<div class="controls">
+								<input type="text" name="codeupload" id="code_upload" class="input-large">
+							</div>
+						</div>
+						<div class="control-group">	
+							<div class="control-label">
 								<label>Lãi xuất tiền gửi:</label>
 							</div>
 							<div class="controls">
 								<input type="file" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" name="LXTG" id="file_TG" class="input-large">
 							</div>
+						</div>
+						<div class="control-group">	
 							<div class="control-label">
 								<label>Lãi xuất tiền vay:</label>
 							</div>
 							<div class="controls">
 								<input type="file" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" name="LXTV" id="file_TV" class="input-large">
 							</div>
+						</div>
+						<div class="control-group">	
 							<div class="control-label">
 								<label>Tỷ giá:</label>
 							</div>
 							<div class="controls">
 								<input type="file" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" name="TGIA" id="file_TGI" class="input-large">
 							</div>
+						</div>
+						<div class="control-group">	
+							<div class="control-label">
+								<label>Video:</label>
+							</div>
+							<div class="controls">
+								<input type="file" name="video" id="Video" class="input-large">
+							</div>
+						</div>
+						<div class="control-group">	
 							<div class="control-label">
 								<label>Chữ chạy dưới:</label>
 							</div>
 							<div class="controls">
-								<textarea name="CHD" id="undertext" cols="30" rows="10"></textarea>
+								<textarea name="CHD" id="undertext" rows="10"></textarea>
 							</div>
 						</div>
 						
