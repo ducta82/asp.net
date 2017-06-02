@@ -32,7 +32,7 @@
 							 }
 						</script>
 						<video id="video" class="video_home" autoplay="autoplay" onloadstart="playVideo();">
-						  <source type="video/ogg; codecs=theora,vorbis" src="<?php echo $row['url_video']?>">
+						  <source type="video/mp4" src="<?php echo $row['url_video']?>">
 						</video>
 					</div>
 				</div>
@@ -68,17 +68,17 @@
 										<?php } ?>
 												<td>
 													<span>
-														<marquee height="100%" direction="up" scrolldelay="300"><?php echo $name; ?></marquee>
+														<?php echo $name; ?>
 													</span>
 												</td>
 												<td>
 													<span>
-														<marquee height="100%" direction="up" scrolldelay="300"><?php echo $Gia_mua; ?></marquee>
+														<?php echo $Gia_mua; ?>
 													</span>
 												</td>
 												<td>
 													<span>
-														<marquee height="100%" direction="up" scrolldelay="300"><?php echo $Gia_ban; ?></marquee>
+														<?php echo $Gia_ban; ?>
 													</span>
 												</td>
 										</tr>
@@ -103,26 +103,25 @@
 									<?php
 										$SQLSELECT = "SELECT * FROM lai_suat_tg ORDER BY ID asc";
 										$result_set =  mysqli_query($conn,$SQLSELECT);
-										$i = 1;
 										$ky_han = '';
 										$LS_VND = '';
 										$LS_USD = '';
 										while($row = mysqli_fetch_array($result_set,MYSQLI_ASSOC))
 										{
-											$cls = $i%2 == 0 ? 'white' : 'yeallow';
-											$LS_nam =number_format($row['Lai_suat']/12, 4, '.','') ;
-											$loai_TG = $row['Loai_TG'];
-											$VND = $loai_TG == 1 || $loai_TG == 2 ? $row['Lai_suat'].'%' : '----';
-											$USD = $loai_TG == 3 || $loai_TG == 4 ? $row['Lai_suat'].'%' : '----';
-											$ky_han .= $row['ShortName'].'</br>';
-											$LS_VND .= $VND.'</br>';
-											$LS_USD .= $USD.'</br>';
-											$i++;} 
+											if($row['Loai_TG'] == 1){
+												$loai_TG = $row['Loai_TG'];
+												$VND = $loai_TG == 1 || $loai_TG == 2 ? $row['Lai_suat'].'%' : '----';
+												$USD = $loai_TG == 3 || $loai_TG == 4 ? $row['Lai_suat'].'%' : '----';
+												$ky_han .= $row['ShortName'].'</br>';
+												$LS_VND .= $VND.'</br>';
+												$LS_USD .= $USD.'</br>';
+											}
+										} 
 									?>
 										<tr>
-											<td colspan="2"><marquee height="300" direction="up" scrolldelay="300"><span><?php echo $ky_han; ?></marquee></span></td>
-											<td><marquee height="300" direction="up" scrolldelay="300"><span><?php echo $LS_VND; ?></marquee></span></td>
-											<td><marquee height="300" direction="up" scrolldelay="300"><span><?php echo $LS_USD; ?></marquee></span></td>
+											<td colspan="2"><marquee height="auto" direction="up" scrolldelay="300"><span><?php echo $ky_han; ?></marquee></span></td>
+											<td><marquee height="auto" direction="up" scrolldelay="300"><span><?php echo $LS_VND; ?></marquee></span></td>
+											<td><marquee height="auto" direction="up" scrolldelay="300"><span><?php echo $LS_USD; ?></marquee></span></td>
 										</tr>
 									</tbody>
 								</table>
@@ -164,9 +163,9 @@
 						</div>
 				</div>
 				<div class="text-bottom">
-					<span style="font-family:Tahoma;font-size: 16pt;line-height: 36px;">
-					<marquee>
-					<?php
+					<span style="font-family:Tahoma;">
+						<marquee style="font-size: 16pt;line-height: 36px;">
+							<?php
 								$SQLSELECT = "SELECT * FROM chu_chay_duoi";
 								$result_text =  mysqli_query($conn,$SQLSELECT);
 								while($row = mysqli_fetch_array($result_text,MYSQLI_ASSOC))
