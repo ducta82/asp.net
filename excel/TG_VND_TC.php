@@ -164,17 +164,17 @@
 									<tbody style="background: #99FF66;">
 										<tr>
 											<td colspan="2">
-												<marquee height="auto" direction="up" scrolldelay="300">
+												<marquee height="250" direction="up" scrolldelay="300">
 													<span><?php echo $ky_han; ?></span>
 												</marquee>
 											</td>
 											<td>
-												<marquee height="auto" direction="up" scrolldelay="300">
+												<marquee height="250" direction="up" scrolldelay="300">
 													<span><?php echo $LS_VND; ?></span>
 												</marquee>
 											</td>
 											<td>
-											<marquee height="auto" direction="up" scrolldelay="300">
+											<marquee height="250" direction="up" scrolldelay="300">
 												<span><?php echo $LS_USD; ?></span>
 											</marquee>
 											</td>
