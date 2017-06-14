@@ -4,7 +4,8 @@
 if (!is_admin()){
     redirect(base_url('admin'), array('m' => 'common', 'a' => 'logout'));
 }
-
+include_once('database/code_upload.php');
+$code = db_get_code_upload();
 header('Content-Type: text/html; charset=utf-8');  
 if (is_submit('add_code_upload'))
 {
@@ -13,10 +14,7 @@ if (is_submit('add_code_upload'))
         'code'  => input_post('codeUpload')
     );
      
-    include_once('database/code_upload.php');
-     
     // Thực hiện validate
-    $code = db_get_code_upload();
     if($code){
         $error = $data['code'] == $code['code'] ? true : false ;   
     }else{
@@ -50,7 +48,7 @@ if (is_submit('add_code_upload'))
  
 <?php include_once('widgets/header.php'); ?>
 <h1>Thay đổi code upload!</h1>
- 
+<h2>Code upload hiện tại: <span style="color:red;"><?php echo $code['code'];?></span></h2> 
 <div class="controls">
     <a class="button" onclick="$('#main-form').submit()" href="#">Lưu</a>
     <a class="button" href="<?php echo create_link(base_url('admin')); ?>">Trở về</a>

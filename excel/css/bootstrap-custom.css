@@ -182,6 +182,9 @@ h3.table-name strong{
 .disaplay_table{
   display: table;
 }
+.LSTG_table span{
+  line-height: 2px;
+}
 @keyframes srcoll {
    0% {
     -webkit-transform: translate(0, 0%);
