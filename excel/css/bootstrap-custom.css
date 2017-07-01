@@ -32,8 +32,7 @@ body {
     /* The html and body elements cannot have any padding or margin. */
 }
 body{
-  margin: 8px;
-  margin-right: 0;
+  margin: 0 8px 0 8px;
 }
 /* Wrapper for page content to push down footer */
 #wrap {
@@ -153,6 +152,7 @@ h3.table-name strong{
     border: solid 3px #942512;
     font-size: 15px;
     text-align: center;
+    margin-bottom: 10px;
 }
 .LSTV_table>thead>tr>td,.LSTG_table>thead>tr>td, .TGUSD_table>thead>tr>td{
   border: none;
@@ -161,7 +161,7 @@ h3.table-name strong{
   font-weight: bold;
 }
 .TGUSD_table>thead>tr.title_TGUSD_table>td, .LSTV_table>thead>tr.title_TGUSD_table>td,.LSTG_table>thead>tr.title_TGUSD_table>td{
-  font-size: 12px;
+  font-size: 14px;
   font-weight: bold;
 }
 .TGUSD_table>tbody>tr>td, .LSTV_table>tbody>tr>td,.LSTG_table>tbody>tr>td{
@@ -181,6 +181,9 @@ h3.table-name strong{
 }
 .disaplay_table{
   display: table;
+}
+.LSTG_table span{
+  line-height: 2px;
 }
 @keyframes srcoll {
    0% {
