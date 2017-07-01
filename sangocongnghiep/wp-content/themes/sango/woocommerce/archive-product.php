@@ -32,7 +32,7 @@ get_header( 'shop' ); ?>
 		 */
 		do_action( 'woocommerce_before_main_content' );
 	?>
-
+<div id="sidebar-main" class="col-md-9">
     <header class="woocommerce-products-header">
 
 		<?php if ( apply_filters( 'woocommerce_show_page_title', true ) ) : ?>
@@ -108,13 +108,14 @@ get_header( 'shop' ); ?>
 			?>
 
 		<?php endif; ?>
-
+</div>
 	<?php
 		/**
 		 * woocommerce_after_main_content hook.
 		 *
 		 * @hooked woocommerce_output_content_wrapper_end - 10 (outputs closing divs for the content)
 		 */
+		do_action( 'woocommerce_sidebar' );
 		do_action( 'woocommerce_after_main_content' );
 	?>
 
@@ -124,7 +125,7 @@ get_header( 'shop' ); ?>
 		 *
 		 * @hooked woocommerce_get_sidebar - 10
 		 */
-		do_action( 'woocommerce_sidebar' );
+		//do_action( 'woocommerce_sidebar' );
 	?>
 
 <?php get_footer( 'shop' ); ?>

@@ -1896,7 +1896,7 @@ get_header(); ?>
                                                     if (tpj.fn.cssOriginal != undefined)
                                                         tpj.fn.css = tpj.fn.cssOriginal;
 
-                                                    tpj('#sliderlayer340451705').revolution({
+                                                    $('#sliderlayer340451705').revolution({
                                                         delay: 6000,
                                                         startheight: 400,
                                                         startwidth: 1050,
