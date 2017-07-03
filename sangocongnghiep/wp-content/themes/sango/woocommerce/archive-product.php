@@ -54,7 +54,42 @@ get_header( 'shop' ); ?>
     </header>
 
 		<?php if ( have_posts() ) : ?>
+			<div class="product-filter space-padding-tb-10 clearfix">
+				<div class="display">
+				  <div class="btn-group group-switch">
+				    <button type="button" id="list-view" class="btn btn-switch" data-toggle="tooltip" title="Danh sách"><i class="fa fa-th-list"></i></button>
+				    <button type="button" id="grid-view" class="btn btn-switch active" data-toggle="tooltip" title="Lưới sản phẩm"><i class="fa fa-th-large"></i></button>
+				  </div>
+				</div>
+				<div class="filter-right">
+				  <div class="product-compare pull-right"><a href="/index.php?route=product/compare" class="btn btn-xs btn-primary " id="compare-total">So sánh sản phẩm (0)</a></div>
+				  <div class="sort pull-right">
+				    <span for="input-sort">Sắp xếp theo:</span>
+				    <select id="input-sort" class="form-control" onchange="location = this.value;">
+				                      <option value="/san-go-chau-au?sort=p.sort_order&amp;order=ASC">Mặc định</option>
+				                              <option value="/san-go-chau-au?sort=pd.name&amp;order=ASC">Tên (A - Z)</option>
+				                              <option value="/san-go-chau-au?sort=pd.name&amp;order=DESC">Tên (Z - A)</option>
+				                              <option value="/san-go-chau-au?sort=p.price&amp;order=ASC" selected="selected">Giá (Thấp &gt; Cao)</option>
+				                              <option value="/san-go-chau-au?sort=p.price&amp;order=DESC">Giá (Cao &gt; Thấp)</option>
+				                              <option value="/san-go-chau-au?sort=rating&amp;order=DESC">Đánh giá (Cao nhất)</option>
+				                              <option value="/san-go-chau-au?sort=rating&amp;order=ASC">Đánh giá (Thấp nhất)</option>
+				                              <option value="/san-go-chau-au?sort=p.model&amp;order=ASC">Kiểu (A - Z)</option>
+				                              <option value="/san-go-chau-au?sort=p.model&amp;order=DESC">Kiểu (Z - A)</option>
+				                    </select>
+				  </div>    
+				  <div class="limit pull-right">
+				    <span for="input-limit">Hiển thị:</span>
+				    <select id="input-limit" class="form-control" onchange="location = this.value;">
+				    <option value="/san-go-chau-au?limit=25">25</option>
+				            <option value="/san-go-chau-au?limit=36" selected="selected">36</option>
+				            <option value="/san-go-chau-au?limit=50">50</option>
+				            <option value="/san-go-chau-au?limit=75">75</option>
+				            <option value="/san-go-chau-au?limit=100">100</option>
+				  </select>
+				  </div>
+				</div>
 
+				</div>	
 			<?php
 				/**
 				 * woocommerce_before_shop_loop hook.

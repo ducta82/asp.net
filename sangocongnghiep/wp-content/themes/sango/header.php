@@ -47,7 +47,21 @@ body {font-family: ; font-size: 15}
 #header-main {font-family: ; font-size: 15}
 #module-container {font-family: ; font-size: 15}
 </style>
-<?php wp_head(); ?>
+<?php 
+if(is_home()){
+  echo '<style>
+          body[class*="-home"] .header-v3 .pav-verticalmenu, body[class*="-home"] .header-v2 .pav-verticalmenu {
+    display: block;}
+       </style>';
+}else{
+  echo '<style>
+          #header-layout .dropdown:hover .pav-verticalmenu {
+           display: block;
+           position: absolute;
+          }
+       </style>';
+}
+wp_head(); ?>
 </head>
 
 <body <?php body_class("common-home page-home layout-boxed-lg"); ?>>

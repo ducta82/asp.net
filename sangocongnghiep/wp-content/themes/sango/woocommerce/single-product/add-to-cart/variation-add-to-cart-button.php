@@ -32,6 +32,10 @@ global $product;
 		do_action( 'woocommerce_after_add_to_cart_quantity' );
 	?>
 	<button type="submit" class="single_add_to_cart_button button alt"><?php echo esc_html( $product->single_add_to_cart_text() ); ?></button>
+	<a href="<?php echo esc_url( add_query_arg( 'add_to_wishlist', $product_id ) )?>" rel="nofollow" data-product-id="<?php echo $product_id ?>" data-product-type="<?php echo $product_type?>" class="<?php echo $link_classes ?>" >
+    <?php echo $icon ?>
+	</a>
+	<img src="<?php echo esc_url( YITH_WCWL_URL . 'assets/images/wpspin_light.gif' ) ?>" class="ajax-loading" alt="loading" width="16" height="16" style="visibility:hidden" />
 	<input type="hidden" name="add-to-cart" value="<?php echo absint( $product->get_id() ); ?>" />
 	<input type="hidden" name="product_id" value="<?php echo absint( $product->get_id() ); ?>" />
 	<input type="hidden" name="variation_id" class="variation_id" value="0" />

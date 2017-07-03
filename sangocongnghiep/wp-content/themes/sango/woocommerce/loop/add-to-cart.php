@@ -19,7 +19,9 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
-
+if ( ! defined( 'YITH_WCWL' ) ) {
+	exit;
+} // Exit if accessed directly
 global $product;
 
 echo apply_filters( 'woocommerce_loop_add_to_cart_link',
@@ -32,3 +34,35 @@ echo apply_filters( 'woocommerce_loop_add_to_cart_link',
 		esc_html( $product->add_to_cart_text() )
 	),
 $product );
+if(is_product_category()){
+	?>
+	<div class="yith-wcwl-add-to-wishlist add-to-wishlist-<?php echo $product_id ?>">
+		<?php if( ! ( $disable_wishlist && ! is_user_logged_in() ) ): ?>
+		    <div class="yith-wcwl-add-button <?php echo ( $exists && ! $available_multi_wishlist ) ? 'hide': 'show' ?>" style="display:<?php echo ( $exists && ! $available_multi_wishlist ) ? 'none': 'block' ?>">
+			<a href="<?php echo get_the_permalink().'?add_to_wishlist='.$product->get_id();?>" rel="nofollow" data-product-id="<?php echo $product->get_id();?>" data-product-type="<?php echo $product->get_type();?>" class="add_to_wishlist single_add_to_wishlist button alt" ><i class="fa fa-heart"></i>
+			</a>
+			<img src="<?php echo esc_url( YITH_WCWL_URL . 'assets/images/wpspin_light.gif' ) ?>" class="ajax-loading" alt="loading" width="16" height="16" style="visibility:hidden" />
+
+		    </div>
+
+		    <div class="yith-wcwl-wishlistaddedbrowse hide" style="display:none;">
+		        <span class="feedback"><?php echo $product_added_text ?></span>
+		        <a href="<?php echo esc_url( $wishlist_url )?>" rel="nofollow">
+		            <?php echo apply_filters( 'yith-wcwl-browse-wishlist-label', $browse_wishlist_text )?>
+		        </a>
+		    </div>
+
+		    <div class="yith-wcwl-wishlistexistsbrowse <?php echo ( $exists && ! $available_multi_wishlist ) ? 'show' : 'hide' ?>" style="display:<?php echo ( $exists && ! $available_multi_wishlist ) ? 'block' : 'none' ?>">
+		        <span class="feedback"><?php echo $already_in_wishslist_text ?></span>
+		        <a href="<?php echo esc_url( $wishlist_url ) ?>" rel="nofollow">
+		            <?php echo apply_filters( 'yith-wcwl-browse-wishlist-label', $browse_wishlist_text )?>
+		        </a>
+		    </div>
+
+		    <div style="clear:both"></div>
+		    <div class="yith-wcwl-wishlistaddresponse"></div>
+		<?php endif; ?>
+	</div>
+	<div class="clear"></div>
+	<?php
+}
