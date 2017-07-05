@@ -16,4 +16,5 @@
  * @version     2.0.0
  */
 ?>
-</ul>
+	</div><!--end block-->
+</div><!--end product-grid-->	

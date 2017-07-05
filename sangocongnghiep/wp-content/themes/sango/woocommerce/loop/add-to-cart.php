@@ -22,10 +22,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 if ( ! defined( 'YITH_WCWL' ) ) {
 	exit;
 } // Exit if accessed directly
-global $product;
 
+global $product;
+$product_id = $product->get_id();
 echo apply_filters( 'woocommerce_loop_add_to_cart_link',
-	sprintf( '<a rel="nofollow" href="%s" data-quantity="%s" data-product_id="%s" data-product_sku="%s" class="%s">%s</a>',
+	sprintf( '<div class="cart"><a rel="nofollow" href="%s" data-quantity="%s" data-product_id="%s" data-product_sku="%s" class="%s btn btn-dark btn-md">%s<i class="fa fa-shopping-cart" aria-hidden="true"></i></a></div>',
 		esc_url( $product->add_to_cart_url() ),
 		esc_attr( isset( $quantity ) ? $quantity : 1 ),
 		esc_attr( $product->get_id() ),
@@ -39,7 +40,7 @@ if(is_product_category()){
 	<div class="yith-wcwl-add-to-wishlist add-to-wishlist-<?php echo $product_id ?>">
 		<?php if( ! ( $disable_wishlist && ! is_user_logged_in() ) ): ?>
 		    <div class="yith-wcwl-add-button <?php echo ( $exists && ! $available_multi_wishlist ) ? 'hide': 'show' ?>" style="display:<?php echo ( $exists && ! $available_multi_wishlist ) ? 'none': 'block' ?>">
-			<a href="<?php echo get_the_permalink().'?add_to_wishlist='.$product->get_id();?>" rel="nofollow" data-product-id="<?php echo $product->get_id();?>" data-product-type="<?php echo $product->get_type();?>" class="add_to_wishlist single_add_to_wishlist button alt" ><i class="fa fa-heart"></i>
+			<a href="<?php echo get_the_permalink().'?add_to_wishlist='.$product_id;?>" rel="nofollow" data-product-id="<?php echo $product_id;?>" data-product-type="<?php echo $product->get_type();?>" class="add_to_wishlist single_add_to_wishlist button alt btn btn-dark btn-md " ><i class="fa fa-heart" aria-hidden="true"></i>
 			</a>
 			<img src="<?php echo esc_url( YITH_WCWL_URL . 'assets/images/wpspin_light.gif' ) ?>" class="ajax-loading" alt="loading" width="16" height="16" style="visibility:hidden" />
 

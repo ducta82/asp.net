@@ -62,20 +62,12 @@ get_header( 'shop' ); ?>
 				  </div>
 				</div>
 				<div class="filter-right">
-				  <div class="product-compare pull-right"><a href="/index.php?route=product/compare" class="btn btn-xs btn-primary " id="compare-total">So sánh sản phẩm (0)</a></div>
 				  <div class="sort pull-right">
 				    <span for="input-sort">Sắp xếp theo:</span>
-				    <select id="input-sort" class="form-control" onchange="location = this.value;">
-				                      <option value="/san-go-chau-au?sort=p.sort_order&amp;order=ASC">Mặc định</option>
-				                              <option value="/san-go-chau-au?sort=pd.name&amp;order=ASC">Tên (A - Z)</option>
-				                              <option value="/san-go-chau-au?sort=pd.name&amp;order=DESC">Tên (Z - A)</option>
-				                              <option value="/san-go-chau-au?sort=p.price&amp;order=ASC" selected="selected">Giá (Thấp &gt; Cao)</option>
-				                              <option value="/san-go-chau-au?sort=p.price&amp;order=DESC">Giá (Cao &gt; Thấp)</option>
-				                              <option value="/san-go-chau-au?sort=rating&amp;order=DESC">Đánh giá (Cao nhất)</option>
-				                              <option value="/san-go-chau-au?sort=rating&amp;order=ASC">Đánh giá (Thấp nhất)</option>
-				                              <option value="/san-go-chau-au?sort=p.model&amp;order=ASC">Kiểu (A - Z)</option>
-				                              <option value="/san-go-chau-au?sort=p.model&amp;order=DESC">Kiểu (Z - A)</option>
-				                    </select>
+				    <?php 
+					remove_action( 'woocommerce_before_shop_loop', 'woocommerce_result_count', 20 );
+				    do_action( 'woocommerce_before_shop_loop' ); 
+				    ?>
 				  </div>    
 				  <div class="limit pull-right">
 				    <span for="input-limit">Hiển thị:</span>
@@ -89,7 +81,7 @@ get_header( 'shop' ); ?>
 				  </div>
 				</div>
 
-				</div>	
+			</div>	
 			<?php
 				/**
 				 * woocommerce_before_shop_loop hook.
@@ -98,13 +90,17 @@ get_header( 'shop' ); ?>
 				 * @hooked woocommerce_result_count - 20
 				 * @hooked woocommerce_catalog_ordering - 30
 				 */
-				do_action( 'woocommerce_before_shop_loop' );
+				//do_action( 'woocommerce_before_shop_loop' );
 			?>
-
 			<?php woocommerce_product_loop_start(); ?>
 
 				<?php woocommerce_product_subcategories(); ?>
-
+				<?php 	
+					global $i; $i = 1; 
+					global $wp_query, $total_custom, $per_page_custom;
+					$per_page_custom = $wp_query->get( 'posts_per_page' );
+					$total_custom = $wp_query->found_posts;
+				?>
 				<?php while ( have_posts() ) : the_post(); ?>
 
 					<?php
@@ -117,11 +113,10 @@ get_header( 'shop' ); ?>
 					?>
 
 					<?php wc_get_template_part( 'content', 'product' ); ?>
-
+				<?php $i++;?>
 				<?php endwhile; // end of the loop. ?>
 
 			<?php woocommerce_product_loop_end(); ?>
-
 			<?php
 				/**
 				 * woocommerce_after_shop_loop hook.

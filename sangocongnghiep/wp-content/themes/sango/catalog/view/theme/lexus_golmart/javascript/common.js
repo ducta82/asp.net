@@ -25,7 +25,8 @@
 }
 // offcanvas menu 
 $(document).ready(function () {
-
+  //$('a.ajax_add_to_cart').addClass('fa fa-cart-plus');
+  //$('a.button.product_type_variable').addClass('fa fa-cart-plus');
    var timeout;
     $('.product-feature-carousel .carousel-inner').css("overflow","inherit");
     $(".carousel-control").each(function(){
