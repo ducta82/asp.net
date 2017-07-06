@@ -46,36 +46,49 @@ Nicolas Gallagher and Jonathan Neal http://necolas.github.io/normalize.css/
 /*--------------------------------------------------------------
 # Normalize
 --------------------------------------------------------------*/
-
-/**woocomerce**/
-.woocommerce .star-rating{
-    font-size: 0.7em;    
-    float: left;
-    margin-top: 5px;
-}
-.woocommerce .star-rating::before, .woocommerce .star-rating span::before{
-    color: #F26B35;
-}
-.price{
-	width: 100%;
-    float: left;
-    line-height: 25px;
-    color: #F26B35;
-    font-size: 14px;
-}
-i.fa.fa-shopping-cart{
-    line-height: 25px;
-    font-size: 20px;
-}
-.yith-wcwl-add-to-wishlist .ajax-loading{
-    margin-left: -42px;
+ul.sub-menu{
+	right: auto;    
+	background: #ffffff;
+    list-style: none;
+    font-size: 15px;
+    text-transform: uppercase;
+    line-height: 35px;
+    left: 110%;
+    opacity: 0;
+    filter: alpha(opacity=0);
+    -webkit-transition: all 0.4s cubic-bezier(.25,.46,.45,.94) 0s;
+    -o-transition: all 0.4s cubic-bezier(.25,.46,.45,.94) 0s;
+    transition: all 0.4s cubic-bezier(.25,.46,.45,.94) 0s;
+    top: 0;
+    position: absolute;
+    visibility: hidden;
     z-index: 999;
-    position: relative;
+    display: block;
+    min-width: 250px;
+    padding: 15px;    
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+    background-clip: padding-box;
 }
-.wishlist_table .add_to_cart, a.add_to_wishlist.button.alt{
-    position: relative;
-    z-index: 1;
+.navbar-nav>li:hover>ul.sub-menu {
+    top: 0;
+    opacity: 1;
+    filter: alpha(opacity=100);
+    visibility: visible;
+    display: block;
+    left: 100%;
+    border: none;
+    border-top: 3px solid #000;
+    margin-left: -1px;
 }
-.woocommerce p.stars:hover a::before{
-    color: #F26B35;
+li.menu-item{
+	padding: 0 5px 0 15px;
+}
+#offcanvasmenu li.menu-item{
+	padding: 0;
+}
+.verticalmenu .navbar-nav>li.menu-item>a{
+	text-transform: uppercase;
+}
+.pav-megamenu .navbar-nav>li:hover>.sub-menu, .pav-megamenu .navbar-nav>li:focus>.sub-menu{
+	left: 0;
 }

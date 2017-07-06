@@ -217,164 +217,90 @@ wp_head(); ?>
   
 </div>
  
-  <div class="header-bottom">
+<div class="header-bottom">
     <div class="container">
-      <div class="row no-margin">
-        <div class="col-xs-12 col-sm-0 col-md-0 col-lg-2 hidden-sm hidden-xs hidden-md no-padding">
-                      <div class="dropdown">
-           <div class="panel panel-default space-top-10">
-            <div class="bg-default panel-heading">
-            <h4 class="panel-title white font-size-14">
-              Danh Mục Sản Phẩm
-              <span class="pull-right fa fa-angle-down red font-size-18"></span>
-            </h4>
+        <div class="row no-margin">
+            <div class="col-xs-12 col-sm-0 col-md-0 col-lg-2 hidden-sm hidden-xs hidden-md no-padding">
+                <div class="dropdown">
+                    <div class="panel panel-default space-top-10">
+                        <div class="bg-default panel-heading">
+                            <h4 class="panel-title white font-size-14">
+                              Danh Mục Sản Phẩm
+                              <span class="pull-right fa fa-angle-down red font-size-18"></span>
+                            </h4>
+                        </div>
+                    </div>
+                    <div class="pav-verticalmenu">
+                        <div class="navbar navbar-default">
+                            <div class="verticalmenu" role="navigation">
+                                <div class="navbar-header">
+                                    <a href="javascript:;" data-target=".navbar-collapse" data-toggle="collapse" class="navbar-toggle">
+                                        <span class="icon-bar"></span>
+                                        <span class="icon-bar"></span>
+                                        <span class="icon-bar"></span>
+                                    </a>
+                                    <?php
+                                         /**
+                                        * Displays a navigation menu.
+                                        *
+                                        * @since 3.0.0
+                                        */
+                                         $MenuDoc_Walker_Nav_Menu = new MenuDoc_Walker_Nav_Menu;
+                                        $arg_primary = array(
+                                          'theme_location' => 'menu-1',
+                                          'container_class' => 'collapse navbar-collapse navbar-ex1-collapse',
+                                          'menu_class' => 'nav navbar-nav verticalmenu',
+                                          'depth' => 2,
+                                          'walker' => $MenuDoc_Walker_Nav_Menu
+                                        );
+                                      
+                                        wp_nav_menu( $arg_primary );
+                                    ?>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>        
-	<div class="pav-verticalmenu">
-		<div class="navbar navbar-default">
-			<div  class="verticalmenu" role="navigation">
-				<div class="navbar-header">
-				<a href="javascript:;" data-target=".navbar-collapse" data-toggle="collapse" class="navbar-toggle">
-			        <span class="icon-bar"></span>
-			        <span class="icon-bar"></span>
-			        <span class="icon-bar"></span>
-			     </a>
-				<div class="collapse navbar-collapse navbar-ex1-collapse">
-				<ul class="nav navbar-nav verticalmenu">
-				    <li class="parent dropdown ">
-				        <a class="dropdown-toggle" data-toggle="dropdown" href="/san-pham-khuyen-mai">
-				            <span class="menu-title">SẢN PHẨM KHUYẾN MẠI</span>
-				            <b class="caret"></b></a>
-				        <div class="dropdown-menu level1">
-				            <div class="dropdown-menu-inner">
-				                <div class="row">
-				                    <div class="col-sm-12 mega-col" data-colwidth="12" data-type="menu">
-				                        <div class="mega-col-inner">
-				                            <ul>
-				                                <li class=" "><a href="/san-go-thanh-ly"><i class=""></i><span class="menu-title">SÀN GỖ THANH LÝ</span></a></li>
-				                            </ul>
-				                        </div>
-				                    </div>
-				                </div>
-				    </li>
-				    <li class="">
-				        <a href="/san-pham-ban-chay"><i class=""></i><span class="menu-title">SẢN PHẨM BÁN CHẠY</span></a></li>
-				    <li class="parent dropdown ">
-				        <a class="dropdown-toggle" data-toggle="dropdown" href="/san-go-gia-re"><i class=""></i><span class="menu-title">SÀN GỖ GIÁ RẺ</span><b class="caret"></b></a>
-				        <div class="dropdown-menu level1">
-				            <div class="dropdown-menu-inner">
-				                <div class="row">
-				                    <div class="col-sm-12 mega-col" data-colwidth="12" data-type="menu">
-				                        <div class="mega-col-inner">
-				                            <ul>
-				                                <li class=" "><a href="/san-go-tu-nhien-gia-re"><i class=""></i><span class="menu-title">SÀN GỖ TỰ NHIÊN GIÁ RẺ</span></a></li>
-				                            </ul>
-				                        </div>
-				                    </div>
-				                </div>
-				    </li>
-				    
-				    <li class="parent dropdown ">
-				        <a class="dropdown-toggle" data-toggle="dropdown" href="/san-go-tu-nhien"><i class=""></i><span class="menu-title">SÀN GỖ TỰ NHIÊN</span><b class="caret"></b></a>
-				        <div class="dropdown-menu level1">
-				            <div class="dropdown-menu-inner">
-				                <div class="row">
-				                    <div class="col-sm-12 mega-col" data-colwidth="12" data-type="menu">
-				                        <div class="mega-col-inner">
-				                            <ul>
-				                                <li class=" "><a href="/san-go-soi"><span class="menu-title">Sàn gỗ sồi</span></a></li>
-				                                <li class=" "><a href="/san-go-cam-xe"><span class="menu-title">Sàn gỗ căm xe</span></a></li>
-				                                <li class=" "><a href="/san-go-tram-bong-vang"><span class="menu-title">Sàn gỗ trăm bông vàng</span></a></li>
-				                                <li class=" "><a href="/san-go-chiu-liu"><span class="menu-title">Sàn gỗ chiu liu</span></a></li>
-				                                <li class=" "><a href="/san-go-walnut"><span class="menu-title">Sàn gỗ walnut</span></a></li>
-				                                <li class=" "><a href="/san-go-teak"><span class="menu-title">Sàn gỗ gia ty (teak)</span></a></li>
-				                                <li class=" "><a href="/san-go-tu-nhien-gia-re"><span class="menu-title">Sàn gỗ tự nhiên giá rẻ</span></a></li>
-				                                <li class=" "><a href="/san-go-giang-huong"><span class="menu-title">Sàn gỗ giáng hương</span></a></li>
-				                                <li class=" "><a href="/san-go-go-do"><span class="menu-title">Sàn gỗ gõ đỏ</span></a></li>
-				                                <li class=" "><a href="/san-go-po-mu"><span class="menu-title">Sàn gỗ pơ mu</span></a></li>
-				                            </ul>
-				                        </div>
-				                    </div>
-				                </div>  
-				            </div>
-				        </div>
-				    </li>
-				    <li class="parent dropdown ">
-				        <a class="dropdown-toggle" data-toggle="dropdown" href="/san-go-ngoai-troi"><i class=""></i><span class="menu-title">SÀN GỖ NGOÀI TRỜI</span><b class="caret"></b></a>
-				        <div class="dropdown-menu level1">
-				            <div class="dropdown-menu-inner">
-				                <div class="row">
-				                    <div class="col-sm-12 mega-col" data-colwidth="12" data-type="menu">
-				                        <div class="mega-col-inner">
-				                            <ul>
-				                                <li class=" "><a href="/san-go-san-vuon"><i class=""></i><span class="menu-title">SÀN GỖ SÂN VƯỜN</span></a></li>
-				                                <li class=" "><a href="/san-go-ho-boi"><span class="menu-title">SÀN GỖ HỒ BƠI</span></a></li>
-				                                <li class=" "><a href="/san-go-ngoai-troi-awood"><i class=""></i><span class="menu-title">SÀN GỖ AWOOD</span></a></li>
-				                                <li class=" "><a href="/san-go-tecwood"><span class="menu-title">Sàn gỗ TECWOOD</span></a></li>
-				                                <li class=" "><a href="/san-go-biowood"><span class="menu-title">Sàn gỗ BIOWOOD</span></a></li>
-				                                <li class=" "><a href="/san-go-greenwood"><span class="menu-title">Sàn gỗ GREENWOOD</span></a></li>
-				                                <li class=" "><a href="/san-go-conwood"><span class="menu-title">Sàn gỗ CONWOOD</span></a></li>
-				                                <li class=" "><a href="/vi-gach-go-nhua"><span class="menu-title">Vỉ gạch gỗ nhựa</span></a></li>
-				                            </ul>
-				                        </div>
-				                    </div>
-				                </div>
-				            </div>
-				        </div>
-				    </li>
-				    <li class="">
-				        <a href="/giay-dan-tuong"><i class=""></i><span class="menu-title">GIẤY DÁN TƯỜNG</span></a></li>
-				</ul>				 
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>                  </div>
-        <div class="main-menu topbar-right col-xs-12 col-sm-12 col-md-12 col-lg-10 no-padding">
-          <!-- menu -->
-          <div id="pav-mainnav" class="pav-mainnav"><div class="pav-megamenu">
-          <button data-toggle="offcanvas" class="btn btn-primary canvas-menu hidden-lg hidden-md hidden-sm" type="button"><span class="fa fa-bars"></span> Danh mục Sản Phẩm</button>
-                
-<nav id="pav-megamenu" class="pav-megamenu hidden-sm hidden-xs">
-	<div class="navbar">
-		<div id="mainmenutop" class="megamenu" role="navigation">
-			<div class="navbar-header">
-				<div class="collapse navbar-collapse" id="bs-megamenu">
-					<ul class="nav navbar-nav megamenu">
-					    <li class="parent dropdown "><a class="dropdown-toggle" data-toggle="dropdown" href="/tin-tuc-san-go"><span class="menu-title">TIN TỨC</span><b class="caret"></b></a>
-					        <div class="dropdown-menu level1">
-					            <div class="dropdown-menu-inner">
-					                <div class="row">
-					                    <div class="col-sm-12 mega-col" data-colwidth="12" data-type="menu">
-					                        <div class="mega-col-inner">
-					                            <ul>
-					                                <li class=" "><a href="du-an"><span class="menu-title">Dự Án thực hiện</span></a></li>
-					                                <li class=" "><a href="/hinh-anh"><span class="menu-title">Hình ảnh thi công</span></a></li>
-					                                <li class=" "><a href="/tu-van"><span class="menu-title">Tư vấn</span></a></li>
-					                            </ul>
-					                        </div>    
-					                    </div>
-					                </div>
-					            </div>
-					        </div>    
-					    </li>
-					    <li class=""><a href="/bao-gia-san-go"><span class="menu-title">BÁO GIÁ</span></a></li>
-					    <li class=""><a href="/lien-he"><span class="menu-title">LIÊN HỆ</span></a></li>
-					</ul>			
-				</div>
-			</div>
-		</div>
-	</div>
-</nav>
-</div>
-</div> 
-</div>
+            <div class="main-menu topbar-right col-xs-12 col-sm-12 col-md-12 col-lg-10 no-padding">
+                <!-- menu -->
+                <div id="pav-mainnav" class="pav-mainnav">
+                    <div class="pav-megamenu">
+                        <button data-toggle="offcanvas" class="btn btn-primary canvas-menu hidden-lg hidden-md hidden-sm" type="button"><span class="fa fa-bars"></span> Danh mục Sản Phẩm</button>
 
-      
-      </div>
+                        <nav id="pav-megamenu" class="pav-megamenu hidden-sm hidden-xs">
+                            <div class="navbar">
+                                <div id="mainmenutop" class="megamenu" role="navigation">
+                                    <div class="navbar-header">
+                                      <?php
+                                         /**
+                                        * Displays a navigation menu.
+                                        *
+                                        * @since 3.0.0
+                                        */
+                                         $MenuDoc_Walker_Nav_Menu = new MenuDoc_Walker_Nav_Menu;
+                                        $arg_secondprimary = array(
+                                          'theme_location' => 'menu-2',
+                                          'container_class' => 'collapse navbar-collapse',
+                                          'container_id' => 'bs-megamenu',
+                                          'menu_class' => 'nav navbar-nav megamenu',
+                                          'depth' => 2,
+                                          'walker' => $MenuDoc_Walker_Nav_Menu
+                                        );
+                                        wp_nav_menu( $arg_secondprimary );
+                                    ?>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+
+        </div>
     </div>
-  </div>
+</div>
 </header>
 <!-- sys-notification -->
 <div id="sys-notification">

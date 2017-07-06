@@ -47,7 +47,10 @@ function sango_setup() {
 	register_nav_menus( array(
 		'menu-1' => esc_html__( 'Primary', 'sango' ),
 	) );
-
+	// This theme uses wp_nav_menu() in one location.
+	register_nav_menus( array(
+		'menu-2' => esc_html__( 'Second Menu', 'sango' ),
+	) );
 	/*
 	 * Switch default core markup for search form, comment form, and comments
 	 * to output valid HTML5.
@@ -156,40 +159,281 @@ require get_template_directory() . '/inc/customizer.php';
 require get_template_directory() . '/inc/jetpack.php';
 
 /**
-*	Change add to cart button loop
-*	custom_woocommerce_template_loop_add_to_cart
+* Registers a new post type
+* @uses $wp_post_types Inserts new post type object into the list
+*
+* @param string  Post type key, must not exceed 20 characters
+* @param array|string  See optional args description above.
+* @return object|WP_Error the registered post type object, or an error object
 */
-add_filter( 'woocommerce_product_add_to_cart_text' , 'custom_woocommerce_product_add_to_cart_text' );
-	function custom_woocommerce_product_add_to_cart_text() {
-		$product_type = $product->product_type;
-		
-		switch ( $product_type ) {
-			case 'external':
-				return __( '', 'woocommerce' );
-			break;
-			case 'grouped':
-				return __( '', 'woocommerce' );
-			break;
-			case 'simple':
-				return __( '', 'woocommerce' );
-			break;
-			case 'variable':
-				return __( '', 'woocommerce' );
-			break;
-			default:
-				return __( '', 'woocommerce' );
-		}
-		
-	}
+function product_post_type() {
+
+	$labels = array(
+		'name'                => __( 'All Products', 'sango' ),
+		'singular_name'       => __( 'Product', 'sango' ),
+		'add_new'             => _x( 'Add New Product', 'sango', 'sango' ),
+		'add_new_item'        => __( 'Add New Products', 'sango' ),
+		'edit_item'           => __( 'Edit Product', 'sango' ),
+		'new_item'            => __( 'New Product', 'sango' ),
+		'view_item'           => __( 'View Product', 'sango' ),
+		'search_items'        => __( 'Search Product', 'sango' ),
+		'not_found'           => __( 'No Product found', 'sango' ),
+		'not_found_in_trash'  => __( 'No Product found in Trash', 'sango' ),
+		'parent_item_colon'   => __( 'Parent Product:', 'sango' ),
+		'menu_name'           => __( 'Products', 'sango' ),
+	);
+
+	$args = array(
+		'labels'                   => $labels,
+		'hierarchical'        => false,
+		'description'         => 'description',
+		'taxonomies'          => array('cat-product', 'post_tag' ),
+		'public'              => true,
+		'show_ui'             => true,
+		'show_in_menu'        => true,
+		'show_in_admin_bar'   => true,
+		'menu_position'       => 4,
+		'menu_icon'           => 'dashicons-store',
+		'show_in_nav_menus'   => true,
+		'publicly_queryable'  => true,
+		'exclude_from_search' => false,
+		'has_archive'         => true,
+		'query_var'           => true,
+		'can_export'          => true,
+		'rewrite'             => true,
+		'capability_type'     => 'post',
+		'supports'            => array(
+			'title', 'editor', 'author', 'thumbnail',
+			'excerpt','custom-fields', 'trackbacks', 'comments',
+			'revisions', 'page-attributes', 'post-formats'
+			)
+	);
+
+	register_post_type( 'product', $args );
+}
+
+add_action( 'init', 'product_post_type' );
+
+
+/**
+ * Create a taxonomy
+ *
+ * @uses  Inserts new taxonomy object into the list
+ * @uses  Adds query vars
+ *
+ * @param string  Name of taxonomy object
+ * @param array|string  Name of the object type for the taxonomy object.
+ * @param array|string  Taxonomy arguments
+ * @return null|WP_Error WP_Error if errors, otherwise null.
+ */
+function cat_product_taxonomy() {
+
+	$labels = array(
+		'name'					=> _x( 'Category Product', 'Taxonomy plural name', 'sango' ),
+		'singular_name'			=> _x( 'Category Product', 'Taxonomy singular name', 'sango' ),
+		'search_items'			=> __( 'Search Category Product', 'sango' ),
+		'popular_items'			=> __( 'Popular Category Product', 'sango' ),
+		'all_items'				=> __( 'All Category Product', 'sango' ),
+		'parent_item'			=> __( 'Parent Category Product', 'sango' ),
+		'parent_item_colon'		=> __( 'Parent Category Product', 'sango' ),
+		'edit_item'				=> __( 'Edit Category Product', 'sango' ),
+		'update_item'			=> __( 'Update Category Product', 'sango' ),
+		'add_new_item'			=> __( 'Add New Category Product', 'sango' ),
+		'new_item_name'			=> __( 'New Category Product', 'sango' ),
+		'add_or_remove_items'	=> __( 'Add or remove Category Product', 'sango' ),
+		'choose_from_most_used'	=> __( 'Choose from most used sango', 'sango' ),
+		'menu_name'				=> __( 'Category Products', 'sango' ),
+	);
+
+	$args = array(
+		'labels'            => $labels,
+		'public'            => true,
+		'show_in_nav_menus' => true,
+		'show_admin_column' => true,
+		'hierarchical'      => true,
+		'show_tagcloud'     => true,
+		'show_ui'           => true,
+		'query_var'         => true,
+		'rewrite'           => true,
+		'query_var'         => true,
+		'capabilities'      => array(),
+	);
+
+	register_taxonomy( 'cat-product', array( 'product' ), $args );
+}
+
+add_action( 'init', 'cat_product_taxonomy' );
 /*
-* Custom rating
-*/	
+* hiden category product description 
+*/
+add_filter("manage_edit-cat-product_columns", 'theme_columns'); 
+ 
+function theme_columns($theme_columns) {
+    $new_columns = array(
+        'cb' => '<input type="checkbox" />',
+        'name' => __('Name'),
+        'header_icon' => '',
+//      'description' => __('Description'),
+        'slug' => __('Slug'),
+        'posts' => __('Posts')
+        );
+    return $new_columns;
+}
 
-add_filter('woocommerce_currency_symbol', 'change_existing_currency_symbol', 10, 2);
+/*
+* add custom WYSIWYG Editor in category product edit page
+*/
+add_action("cat-product_edit_form_fields", 'add_form_fields_example', 10, 2);
 
-function change_existing_currency_symbol( $currency_symbol, $currency ) {
-     switch( $currency ) {
-          case 'VND': $currency_symbol = 'VND'; break;
-     }
-     return $currency_symbol;
+function add_form_fields_example($term, $taxonomy){
+    ?>
+    <tr valign="top">
+        <th scope="row">Description</th>
+        <td>
+            <?php wp_editor(html_entity_decode($term->description), 'description', array('media_buttons' => false)); ?>
+            <script>
+                jQuery(window).ready(function(){
+                    jQuery('label[for=description]').parent().parent().remove();
+                });
+            </script>
+        </td>
+    </tr>
+    <?php
+} 
+
+/**
+ * Custom walker class.
+ */
+class MenuDoc_Walker_Nav_Menu extends Walker_Nav_Menu {
+	public function start_el( &$output, $item, $depth = 0, $args = array(), $id = 0 ) {
+	 if ( isset( $args->item_spacing ) && 'discard' === $args->item_spacing ) {
+			$t = '';
+			$n = '';
+		} else {
+			$t = "\t";
+			$n = "\n";
+		}
+		$indent = ( $depth ) ? str_repeat( $t, $depth ) : '';
+		$classes = empty( $item->classes ) ? array() : (array) $item->classes;
+		$classes[] = 'menu-item-' . $item->ID;
+
+		/**
+		 * Filters the arguments for a single nav menu item.
+		 *
+		 * @since 4.4.0
+		 *
+		 * @param stdClass $args  An object of wp_nav_menu() arguments.
+		 * @param WP_Post  $item  Menu item data object.
+		 * @param int      $depth Depth of menu item. Used for padding.
+		 */
+		$args = apply_filters( 'nav_menu_item_args', $args, $item, $depth );
+
+		/**
+		 * Filters the CSS class(es) applied to a menu item's list item element.
+		 *
+		 * @since 3.0.0
+		 * @since 4.1.0 The `$depth` parameter was added.
+		 *
+		 * @param array    $classes The CSS classes that are applied to the menu item's `<li>` element.
+		 * @param WP_Post  $item    The current menu item.
+		 * @param stdClass $args    An object of wp_nav_menu() arguments.
+		 * @param int      $depth   Depth of menu item. Used for padding.
+		 */
+		$class_names = join( ' ', apply_filters( 'nav_menu_css_class', array_filter( $classes ), $item, $args, $depth ) );
+		if ($args->walker->has_children && $depth == 0){
+			$afterlink = '<b class="caret"></b>';
+			$class_names = $class_names ? ' class="'. esc_attr( $class_names ) . ' parent dropdown"' : '';
+        }else{
+         	$class_names = $class_names ? ' class="' . esc_attr( $class_names ) . '"' : ''; 
+        }
+		//$class_names = $class_names ? ' class="' . esc_attr( $class_names ) . '"' : '';
+
+		/**
+		 * Filters the ID applied to a menu item's list item element.
+		 *
+		 * @since 3.0.1
+		 * @since 4.1.0 The `$depth` parameter was added.
+		 *
+		 * @param string   $menu_id The ID that is applied to the menu item's `<li>` element.
+		 * @param WP_Post  $item    The current menu item.
+		 * @param stdClass $args    An object of wp_nav_menu() arguments.
+		 * @param int      $depth   Depth of menu item. Used for padding.
+		 */
+		$id = apply_filters( 'nav_menu_item_id', 'menu-item-'. $item->ID, $item, $args, $depth );
+		$id = $id ? ' id="' . esc_attr( $id ) . '"' : '';
+
+		$output .= $indent . '<li' . $id . $class_names .'>';
+
+		$atts = array();
+		$atts['title']  = ! empty( $item->attr_title ) ? $item->attr_title : '';
+		$atts['target'] = ! empty( $item->target )     ? $item->target     : '';
+		$atts['rel']    = ! empty( $item->xfn )        ? $item->xfn        : '';
+		$atts['href']   = ! empty( $item->url )        ? $item->url        : '';
+
+		/**
+		 * Filters the HTML attributes applied to a menu item's anchor element.
+		 *
+		 * @since 3.6.0
+		 * @since 4.1.0 The `$depth` parameter was added.
+		 *
+		 * @param array $atts {
+		 *     The HTML attributes applied to the menu item's `<a>` element, empty strings are ignored.
+		 *
+		 *     @type string $title  Title attribute.
+		 *     @type string $target Target attribute.
+		 *     @type string $rel    The rel attribute.
+		 *     @type string $href   The href attribute.
+		 * }
+		 * @param WP_Post  $item  The current menu item.
+		 * @param stdClass $args  An object of wp_nav_menu() arguments.
+		 * @param int      $depth Depth of menu item. Used for padding.
+		 */
+		$atts = apply_filters( 'nav_menu_link_attributes', $atts, $item, $args, $depth );
+
+		$attributes = '';
+		foreach ( $atts as $attr => $value ) {
+			if ( ! empty( $value ) ) {
+				$value = ( 'href' === $attr ) ? esc_url( $value ) : esc_attr( $value );
+				$attributes .= ' ' . $attr . '="' . $value . '"';
+			}
+		}
+
+		/** This filter is documented in wp-includes/post-template.php */
+		$title = apply_filters( 'the_title', $item->title, $item->ID );
+
+		/**
+		 * Filters a menu item's title.
+		 *
+		 * @since 4.4.0
+		 *
+		 * @param string   $title The menu item's title.
+		 * @param WP_Post  $item  The current menu item.
+		 * @param stdClass $args  An object of wp_nav_menu() arguments.
+		 * @param int      $depth Depth of menu item. Used for padding.
+		 */
+		$title = apply_filters( 'nav_menu_item_title', $title, $item, $args, $depth );
+
+		$item_output = $args->before;
+		$item_output .= '<a'. $attributes .'>';
+		$item_output .= $args->link_before . $title . $args->link_after;
+		$item_output .= $afterlink;
+		$item_output .= '</a>';
+		$item_output .= $args->after;
+
+		/**
+		 * Filters a menu item's starting output.
+		 *
+		 * The menu item's starting output only includes `$args->before`, the opening `<a>`,
+		 * the menu item's title, the closing `</a>`, and `$args->after`. Currently, there is
+		 * no filter for modifying the opening and closing `<li>` for a menu item.
+		 *
+		 * @since 3.0.0
+		 *
+		 * @param string   $item_output The menu item's starting HTML output.
+		 * @param WP_Post  $item        Menu item data object.
+		 * @param int      $depth       Depth of menu item. Used for padding.
+		 * @param stdClass $args        An object of wp_nav_menu() arguments.
+		 */
+		$output .= apply_filters( 'walker_nav_menu_start_el', $item_output, $item, $depth, $args );
+	}
 }

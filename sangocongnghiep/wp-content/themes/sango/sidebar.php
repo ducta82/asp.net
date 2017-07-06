@@ -7,9 +7,9 @@
  * @package sango
  */
 
-if ( ! is_active_sidebar( 'sidebar-1' ) ) {
+/*if ( ! is_active_sidebar( 'sidebar-1' ) ) {
 	return;
-}
+}*/
 ?>
 <?php dynamic_sidebar( 'sidebar-1' ); ?>
 <aside id="sidebar-right" class="col-md-3">
