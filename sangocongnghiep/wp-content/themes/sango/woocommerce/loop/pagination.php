@@ -26,7 +26,8 @@ if ( $wp_query->max_num_pages <= 1 ) {
 	return;
 }
 ?>
-<nav class="woocommerce-pagination">
+<nav class="woocommerce-pagination paging space-padding-tb-30 clearfix">
+	<div class="pull-left">
 	<?php
 		echo paginate_links( apply_filters( 'woocommerce_pagination_args', array(
 			'base'         => esc_url_raw( str_replace( 999999999, '%#%', remove_query_arg( 'add-to-cart', get_pagenum_link( 999999999, false ) ) ) ),
@@ -41,4 +42,8 @@ if ( $wp_query->max_num_pages <= 1 ) {
 			'mid_size'     => 3,
 		) ) );
 	?>
+	</div>
+	<div class="pull-right">
+		<?php   wc_get_template( 'loop/result-count.php' );?>
+	</div>
 </nav>

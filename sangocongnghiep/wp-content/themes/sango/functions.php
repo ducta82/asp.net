@@ -154,3 +154,42 @@ require get_template_directory() . '/inc/customizer.php';
  * Load Jetpack compatibility file.
  */
 require get_template_directory() . '/inc/jetpack.php';
+
+/**
+*	Change add to cart button loop
+*	custom_woocommerce_template_loop_add_to_cart
+*/
+add_filter( 'woocommerce_product_add_to_cart_text' , 'custom_woocommerce_product_add_to_cart_text' );
+	function custom_woocommerce_product_add_to_cart_text() {
+		$product_type = $product->product_type;
+		
+		switch ( $product_type ) {
+			case 'external':
+				return __( '', 'woocommerce' );
+			break;
+			case 'grouped':
+				return __( '', 'woocommerce' );
+			break;
+			case 'simple':
+				return __( '', 'woocommerce' );
+			break;
+			case 'variable':
+				return __( '', 'woocommerce' );
+			break;
+			default:
+				return __( '', 'woocommerce' );
+		}
+		
+	}
+/*
+* Custom rating
+*/	
+
+add_filter('woocommerce_currency_symbol', 'change_existing_currency_symbol', 10, 2);
+
+function change_existing_currency_symbol( $currency_symbol, $currency ) {
+     switch( $currency ) {
+          case 'VND': $currency_symbol = 'VND'; break;
+     }
+     return $currency_symbol;
+}

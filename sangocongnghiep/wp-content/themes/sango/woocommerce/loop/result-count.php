@@ -23,7 +23,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 global $wp_query;
-
 if ( ! woocommerce_products_will_display() ) {
 	return;
 }
@@ -41,7 +40,7 @@ if ( ! woocommerce_products_will_display() ) {
 		printf( _n( 'Showing the single result', 'Showing all %d results', $total, 'woocommerce' ), $total );
 	} else {
 		/* translators: 1: first result 2: last result 3: total results */
-		printf( _nx( 'Showing the single result', 'Showing %1$d&ndash;%2$d of %3$d results', $total, 'with first and last result', 'woocommerce' ), $first, $last, $total );
+		printf( _nx( 'Hiển thị một kết quả', 'Hiển thị %1$d&ndash;%2$d trong %3$d kết quả', $total, 'với kết quả đầu và cuối', 'woocommerce' ), $first, $last, $total );
 	}
 	?>
 </p>

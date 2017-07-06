@@ -47,3 +47,35 @@ Nicolas Gallagher and Jonathan Neal http://necolas.github.io/normalize.css/
 # Normalize
 --------------------------------------------------------------*/
 
+/**woocomerce**/
+.woocommerce .star-rating{
+    font-size: 0.7em;    
+    float: left;
+    margin-top: 5px;
+}
+.woocommerce .star-rating::before, .woocommerce .star-rating span::before{
+    color: #F26B35;
+}
+.price{
+	width: 100%;
+    float: left;
+    line-height: 25px;
+    color: #F26B35;
+    font-size: 14px;
+}
+i.fa.fa-shopping-cart{
+    line-height: 25px;
+    font-size: 20px;
+}
+.yith-wcwl-add-to-wishlist .ajax-loading{
+    margin-left: -42px;
+    z-index: 999;
+    position: relative;
+}
+.wishlist_table .add_to_cart, a.add_to_wishlist.button.alt{
+    position: relative;
+    z-index: 1;
+}
+.woocommerce p.stars:hover a::before{
+    color: #F26B35;
+}
