@@ -92,3 +92,15 @@ li.menu-item{
 .pav-megamenu .navbar-nav>li:hover>.sub-menu, .pav-megamenu .navbar-nav>li:focus>.sub-menu{
 	left: 0;
 }
+img{
+    height: auto;
+}
+textarea#comment{
+    max-width: 100%;
+}
+
+@media screen and (max-width: 992px){
+    .row-offcanvas-left{
+        z-index: 9999;
+    }
+}

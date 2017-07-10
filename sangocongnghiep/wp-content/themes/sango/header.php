@@ -63,154 +63,110 @@ if(is_home()){
 }
 wp_head(); ?>
 </head>
-
-<body <?php body_class("common-home page-home layout-boxed-lg"); ?>>
+<?php 
+  $home_cls = is_home() ? 'common-home page-home layout-boxed-lg': '' ;
+  $catproduct_cls = is_tax('cat-product') ? 'page-category layout-boxed-lg': '' ;
+  $product_cls = is_singular('product') ? 'page-product layout-boxed-lg': '' ;
+  $cat_cls = is_single() && !is_singular('product') ? 'pavblog-blog page-pavblog-blog layout-boxed-lg': '' ;
+  $cat_cls = is_category() ? 'pavblog-category page-pavblog-category layout-boxed-lg': '' ;
+?>
+<body <?php body_class($home_cls.$catproduct_cls.$product_cls.$cat_cls.$cat_cls); ?>>
 <div class="row-offcanvas row-offcanvas-left">
 <div id="page">
 <header id="header-layout"  class="header-v3">
-<nav id="topbar">
-  <div class="container">
-    <div class="topbar-wrap clearfix">
-      <div class="pull-left">
-      <div class="quick-user pull-left"></div>  
-      <div class="quick-user pull-left"></div> 
-    </div>
-     <div class="quick-setting pull-left hidden-lg hidden-md hidden-sm hidden-xs">
-        <div class="quickaccess-toggle">
-          <span>Setting</span><i class="fa fa-angle-down"></i>
-          <div class="inner-toggle">
-            <ul class="">
-              	<li><a class="" href="/index.php?route=account/account"><span class="fa fa-user"></span>Tài khoản cá nhân</a></li>
-              	<li><a class="shoppingcart" href="/index.php?route=checkout/cart"><span class="fa fa-shopping-cart"></span>Giỏ Hàng</a></li>
-              	<li><a class="last" href="/index.php?route=checkout/checkout"><span class="fa fa-file"></span>Thanh toán</a></li> 
-                <li><a href="/index.php?route=account/register"><span class="fa fa-pencil"></span>Đăng ký</a></li>
-                <li><a href="/index.php?route=account/login"><span class="fa fa-unlock"></span>Đăng nhập</a> </li>
-            </ul>
-          </div>
-        </div>
-      </div>  
-
-      <div class="login pull-right hidden-xs">
-        <ul class="links">
-          	<li><a class="" href="/index.php?route=account/account">Tài khoản cá nhân</a></li>
-          	<li><a class="wishlist" href="/index.php?route=account/wishlist" id="wishlist-total">Mặt hàng yêu thích (0)</a></li>
-            <li><a href="/index.php?route=account/register">Đăng ký</a></li>
-            <li><a href="/index.php?route=account/login">Đăng nhập</a></li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</nav>
 <div class="header-top">
   <div class="container">
     <div class="inside">
       <div class="row">
         <div class="col-xs-12 col-sm-5 col-md-5 text-center">
           <!-- logo -->
-                <div id="logo" class="logo-store"><a href="/" class="img-responsive"><img src="<?php echo THEME_URI;?>/image/catalog/sieu-thi-janhome.png" title="Siêu thị sàn gỗ, giấy dán tường, vật liệu hoàn thiện giá rẻ tại Hà Nội" alt="Siêu thị sàn gỗ, giấy dán tường, vật liệu hoàn thiện giá rẻ tại Hà Nội" /></a></div>
-                </div>
-      
+          <div id="logo" class="logo-store">
+          <?php 
+            $logo = ot_get_option( 'logo_header');
+            $chi_nhanh = ot_get_option( 'chi_nhanh_header');
+            $site_title = get_bloginfo( 'name' );
+          ?>
+            <a href="/" class="img-responsive">
+              <img src="<?php echo $logo;?>" title="<?php echo $site_title;?>" alt="<?php echo $site_title;?>" />
+              </a>
+            </div>
+        </div>
         <div class="col-xs-12 col-sm-4 col-md-4">
            	<div class=" autosearch-wrapper">
-			<form method="GET" action="index.php">
-			<div id="search0" class="input-group">
-				<input class="search_query form-control" type="text" value="" size="35" autocomplete="off" placeholder="Tìm sản phẩm tại đây.." name="search">	
-				<button type="submit" class="button-search autosearch-submit btn btn-default" name="submit_search"><i class="fa fa-search"></i></button>    
-			</div>
-			</form>
-			<div class="clear clr"></div>
-		</div>
+        			 <form role="search" method="get" id="searchform"
+                class="searchform" action="<?php echo esc_url( home_url( '/' ) ); ?>">
+          			<div id="search0" class="input-group">
+          				<input class="search_query form-control" type="text" value="<?php echo get_search_query(); ?>" name="s" size="35" autocomplete="off" placeholder="Tìm sản phẩm tại đây.." name="search">	
+          				<button type="submit" class="button-search autosearch-submit btn btn-default"><i class="fa fa-search"></i></button>    
+          			</div>
+        			</form>
+      			<div class="clear clr"></div>
+    		  </div>
         </div>  
-        <div class="col-xs-12 col-sm-3 col-md-3 text-center hidden-xs">
-          	<div id="cart" class="clearfix">
-			    <div data-toggle="dropdown" data-loading-text="Đang Xử lý..." class="dropdown-toggle">      
-			      <div class="cart-inner">
-			        <a href="">
-			          <i class="icon-cart"></i>
-			     
-			          <div class="wrap-cart">
-			          <h6 class="text-cart">Giỏ Hàng</h6>
-			          <span id="cart-total" class="cart-total radius-x ">0 sản phẩm - 0  VNĐ</span>         
-			          </div>
-			        </a>
-			      </div>
-			    </div>
-			    <ul class="dropdown-menu content">
-			        <li><p class="text-center">Không có sản phẩm trong Đơn hàng!</p></li>
-			    </ul>
-			</div>
-		</div>
       </div>
 	<div class="header-contact">
 		<div class="provinces">
-                    <a href="http://sango.com.vn" class="title_kho" target="_blank" title="JANHOME Hà Nội"><span class="dt">HÀ NỘI</span></a>
-                    <ul class="cont_add">
-                         <li>
-                            <a>JANHOME <span style="color:#ff3333;font-weight:bold;">NGUYỄN XIỂN</span></a>
-                            <div class="des_cont">Kho 28 - Ngõ 300 Nguyễn Xiển (đi vào 150m), Thanh Trì, Hà Nội <b><a style="color:#ff3333;font-weight:bold;" href="tel:0935962233">0935 96 22 33</a> </b></div>
-                        </li>
-						<hr>
-                        <li>
-                            <a>JANHOME <span style="color:#ff3333;font-weight:bold;">BẮC TỪ LIÊM</span></a>
-                            <div class="des_cont">Kho 21 -49 Phạm Văn Đồng(Cạnh Bộ Công An), Bắc Từ Liêm, Hà Nội - <b><a style="color:#ff3333;font-weight:bold;" href="tel:0906302233">0906 30 22 33</a> </b></div>
-                        </li>
-                        <hr>
-                        <li>
-                            <a>JANHOME <span style="color:#ff3333;font-weight:bold;">LONG BIÊN</span></a>
-                            <div class="des_cont">Số 3 Ngô Gia Tự, P Đức Giang, Q Long Biên, Hà Nội - <b><a style="color:#ff3333;font-weight:bold;" href="tel:0939632233">0939 63 22 33</a> </b></div>
-                        </li>
-                    </ul>
-                </div>
-				
+        <a href="http://sango.com.vn" class="title_kho" target="_blank" title="JANHOME Hà Nội"><span class="dt">HÀ NỘI</span></a>
+        <ul class="cont_add">
+             <li>
+                <a>JANHOME <span style="color:#ff3333;font-weight:bold;">NGUYỄN XIỂN</span></a>
+                <div class="des_cont">Kho 28 - Ngõ 300 Nguyễn Xiển (đi vào 150m), Thanh Trì, Hà Nội <b><a style="color:#ff3333;font-weight:bold;" href="tel:0935962233">0935 96 22 33</a> </b></div>
+            </li>
+<hr>
+            <li>
+                <a>JANHOME <span style="color:#ff3333;font-weight:bold;">BẮC TỪ LIÊM</span></a>
+                <div class="des_cont">Kho 21 -49 Phạm Văn Đồng(Cạnh Bộ Công An), Bắc Từ Liêm, Hà Nội - <b><a style="color:#ff3333;font-weight:bold;" href="tel:0906302233">0906 30 22 33</a> </b></div>
+            </li>
+            <hr>
+            <li>
+                <a>JANHOME <span style="color:#ff3333;font-weight:bold;">LONG BIÊN</span></a>
+                <div class="des_cont">Số 3 Ngô Gia Tự, P Đức Giang, Q Long Biên, Hà Nội - <b><a style="color:#ff3333;font-weight:bold;" href="tel:0939632233">0939 63 22 33</a> </b></div>
+            </li>
+        </ul>
+    </div>
 		<div class="provinces">
-                    <a href="http://daklak.sango.com.vn" rel="nofollow" class="title_kho" target="_blank" title="JANHOME ĐẮK LẮK - BUÔN MA THUỘT"><span class="dt">ĐẮK LẮK</span></a>
-                    <ul class="cont_add">
-                         <li>
-                            <a>JANHOME <span style="color:#ff3333;font-weight:bold;">ĐẮK LẮK</span></a>
-                            <div class="des_cont"><b>Trung Tâm JANHOME:</b> 157 Phan Bội Châu, Thống Nhất, Buôn Ma Thuột, Đắk Lắk <b><a style="color:#ff3333;font-weight:bold;" href="tel:0901682233"> ĐT: 0901 68 22 33</a> </b></div>
-							</li>
-							<hr>
-							<li>
-							<div class="des_cont"><b>Trụ sở ĐKKD:</b> G28B Trần Khánh Dư, Tân Lợi, Buôn Ma Thuột, Đắk Lắk <b><a style="color:#ff3333;font-weight:bold;" href="tel:0901682233"> ĐT: 0901 68 22 33</a> </b></div>
-                        </li>
-                       
-                        
-                    </ul>
-                </div>
-			<div class="provinces">
-                    <a href="http://haiduong.sango.com.vn" rel="nofollow" class="title_kho" target="_blank" title="JANHOME Hải Dương"><span class="dt">HẢI DƯƠNG</span></a>
-                    <ul class="cont_add">
-                         <li>
-                            <a>JANHOME <span style="color:#ff3333;font-weight:bold;">HẢI DƯƠNG</span></a>
-                            <div class="des_cont"><b>JANHOME Hải Dương:</b> 377 Thanh Niên, Thành Phố Hải Dương<b><a style="color:#ff3333;font-weight:bold;" href="tel:0975922233"> ĐT: 0975 92 22 33</a> </b></div>
-							</li>							
-                        </li>
-                       
-                        
-                    </ul>
-                </div>
-			<div class="provinces">
-                    <a href="#" rel="nofollow" class="title_kho" target="_blank" title="JANHOME Thái Nguyên"><span class="dt">THÁI NGUYÊN</span></a>
-                    <ul class="cont_add">
-                         <li>
-                            <a href="http://phoyen.sango.com.vn">JANHOME <span style="color:#ff3333;font-weight:bold;">PHỔ YÊN</span></a>
-                            <div class="des_cont"><b>JANHOME PHỔ YÊN:</b> NAM TIẾN, PHỔ YÊN, THÁI NGUYÊN<b><a style="color:#ff3333;font-weight:bold;" href="tel:0972432233"> ĐT: 0972 43 22 33</a> </b></div>
-							</li>							
-                        </li>
-                       
-                        
-                    </ul>
-                </div>
-        
-		   <div class="hotline hidden-xs"><span class="hl">HOTLINE(miễn phí cước gọi): <a href="tel:1800 0022" style="font-size: 40px; color:#F26B35;">1800 0022</a> </span><br>
-    	        
+        <a href="http://daklak.sango.com.vn" rel="nofollow" class="title_kho" target="_blank" title="JANHOME ĐẮK LẮK - BUÔN MA THUỘT"><span class="dt">ĐẮK LẮK</span></a>
+        <ul class="cont_add">
+             <li>
+                <a>JANHOME <span style="color:#ff3333;font-weight:bold;">ĐẮK LẮK</span></a>
+                <div class="des_cont"><b>Trung Tâm JANHOME:</b> 157 Phan Bội Châu, Thống Nhất, Buôn Ma Thuột, Đắk Lắk <b><a style="color:#ff3333;font-weight:bold;" href="tel:0901682233"> ĐT: 0901 68 22 33</a> </b></div>
+	</li>
+	<hr>
+	<li>
+	<div class="des_cont"><b>Trụ sở ĐKKD:</b> G28B Trần Khánh Dư, Tân Lợi, Buôn Ma Thuột, Đắk Lắk <b><a style="color:#ff3333;font-weight:bold;" href="tel:0901682233"> ĐT: 0901 68 22 33</a> </b></div>
+            </li>
+           
+            
+        </ul>
     </div>
-		
-		   <div class="hotline hidden-sm hidden-lg hidden-md hidden-sm" ><span class="hl">HOTLINE(miễn phí cước gọi): <a href="tel:1800 0022" style="font-size: 40px; color:#F26B35;">1800 0022</a> </span><br>
-			
-    	        
+    <div class="provinces">
+      <a href="http://haiduong.sango.com.vn" rel="nofollow" class="title_kho" target="_blank" title="JANHOME Hải Dương"><span class="dt">HẢI DƯƠNG</span></a>
+      <ul class="cont_add">
+        <li>
+        <a>JANHOME <span style="color:#ff3333;font-weight:bold;">HẢI DƯƠNG</span></a>
+        <div class="des_cont"><b>JANHOME Hải Dương:</b> 377 Thanh Niên, Thành Phố Hải Dương<b><a style="color:#ff3333;font-weight:bold;" href="tel:0975922233"> ĐT: 0975 92 22 33</a> </b></div>
+        </li>		
+      </ul>
     </div>
-	
+    <div class="provinces">
+      <a href="#" rel="nofollow" class="title_kho" target="_blank" title="JANHOME Thái Nguyên"><span class="dt">THÁI NGUYÊN</span></a>
+      <ul class="cont_add">
+        <li>
+        <a href="http://phoyen.sango.com.vn">JANHOME <span style="color:#ff3333;font-weight:bold;">PHỔ YÊN</span></a>
+        <div class="des_cont"><b>JANHOME PHỔ YÊN:</b> NAM TIẾN, PHỔ YÊN, THÁI NGUYÊN<b><a style="color:#ff3333;font-weight:bold;" href="tel:0972432233"> ĐT: 0972 43 22 33</a> </b></div>
+        </li>				
+      </ul>
+    </div>
+
+<div class="hotline hidden-xs"><span class="hl">HOTLINE(miễn phí cước gọi): <a href="tel:1800 0022" style="font-size: 40px; color:#F26B35;">1800 0022</a> </span><br>
+
+</div>
+
+<div class="hotline hidden-sm hidden-lg hidden-md hidden-sm" ><span class="hl">HOTLINE(miễn phí cước gọi): <a href="tel:1800 0022" style="font-size: 40px; color:#F26B35;">1800 0022</a> </span><br>
+
+
+</div>
+
 </div>
     </div>
   </div>

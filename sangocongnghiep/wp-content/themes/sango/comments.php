@@ -20,7 +20,7 @@ if ( post_password_required() ) {
 }
 ?>
 
-<div id="comments" class="comments-area">
+<div id="comments" class="comments-area pav-comment">
 
 	<?php
 	// You can start editing here -- including this comment!
@@ -31,13 +31,13 @@ if ( post_password_required() ) {
 				if ( 1 === $comment_count ) {
 					printf(
 						/* translators: 1: title. */
-						esc_html_e( 'One thought on &ldquo;%1$s&rdquo;', 'sango' ),
+						esc_html_e( '1 comment trên &ldquo;%1$s&rdquo;', 'sango' ),
 						'<span>' . get_the_title() . '</span>'
 					);
 				} else {
 					printf( // WPCS: XSS OK.
 						/* translators: 1: comment count number, 2: title. */
-						esc_html( _nx( '%1$s thought on &ldquo;%2$s&rdquo;', '%1$s thoughts on &ldquo;%2$s&rdquo;', $comment_count, 'comments title', 'sango' ) ),
+						esc_html( _nx( '%1$s comment trên &ldquo;%2$s&rdquo;', '%1$s comment trên &ldquo;%2$s&rdquo;', $comment_count, 'comments title', 'sango' ) ),
 						number_format_i18n( $comment_count ),
 						'<span>' . get_the_title() . '</span>'
 					);
@@ -88,8 +88,36 @@ if ( post_password_required() ) {
 		<p class="no-comments"><?php esc_html_e( 'Comments are closed.', 'sango' ); ?></p>
 	<?php
 	endif;
-
-	comment_form();
+	$args = array(
+			'fields' => apply_filters(
+				'comment_form_default_fields', array(
+					'author' =>'<div class="form-group required">
+						<label class="col-sm-2 control-label" for="comment-user">Full Name</label>
+						<div class="col-sm-8">
+							<input class="form-control" type="text" name="author" value="'.esc_attr( $commenter['comment_author'] ).'" id="comment-user">
+						</div>
+					</div>',
+					'email'  => '<div class="form-group required">
+						<label class="col-sm-2 control-label" for="comment-email">Email</label>
+						<div class="col-sm-8">
+							<input class="form-control" type="text" name="email" value="'.esc_attr(  $commenter['comment_author_email'] ).'" id="comment-email">
+						</div>
+					</div>'
+				)
+			),
+			'comment_field' => '<div class="form-group required">
+				<label class="col-sm-2 control-label" for="comment">' . __( 'Comment:' ) . '</label>
+				<div class="col-sm-8">
+					<textarea class="form-control" name="comment" id="comment"></textarea>
+				</div>
+			</div>',
+		    'comment_notes_after' => '',
+		    'title_reply' => '<h4>Leave A Comment:</h4>',
+		    'class_form'=>'form-horizontal',
+		    'comment_notes_before'=> '<fieldset>',
+		    'comment_notes_after'=>'</fieldset>',
+		    'class_submit'=> 'btn btn-default'
+		);
+	comment_form($args);
 	?>
-
 </div><!-- #comments -->

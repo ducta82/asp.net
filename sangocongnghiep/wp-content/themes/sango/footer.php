@@ -272,12 +272,13 @@ Công ty Cổ Phần Xuất Nhập Khẩu Tháng Giêng - Tầng 3, Nhà C2, S�
                 <div id="offcanvasmenu"></div> 
           </div>
           <div class="offcanvas-footer panel-footer">
-              <div class="input-group" id="offcanvas-search">
-                <input type="text" class="form-control" placeholder="Search" value="" name="search">
-                <span class="input-group-btn">
-                  <button class="btn btn-primary" type="button"><i class="fa fa-search"></i></button>
-                </span>
-              </div>
+                <form role="search" method="get" id="offcanvas-search"
+            class="input-group" action="<?php echo esc_url( home_url( '/' ) ); ?>">
+                    <input class="form-control" type="text" value="<?php echo get_search_query(); ?>" name="s" autocomplete="off" placeholder="Tìm sản phẩm tại đây.." name="search"> 
+                    <span class="input-group-btn">
+                        <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
+                    </span>    
+                </form>
           </div>
        </div> 
  </div>
