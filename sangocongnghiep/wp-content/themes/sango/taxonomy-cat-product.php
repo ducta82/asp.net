@@ -90,8 +90,10 @@ get_header(); ?>
 									the_posts_navigation();
 
 								else :
-
-									get_template_part( 'template-parts/content', 'none' );
+									echo '<header class="page-header">
+											<h1 class="page-title">Không có sản phẩm nào trong danh mục này</h1>
+										</header>';
+									//get_template_part( 'template-parts/content', 'none' );
 
 								endif; ?>
 		                    </div>

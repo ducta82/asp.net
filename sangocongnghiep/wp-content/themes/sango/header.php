@@ -83,7 +83,7 @@ wp_head(); ?>
           <div id="logo" class="logo-store">
           <?php 
             $logo = ot_get_option( 'logo_header');
-            $chi_nhanh = ot_get_option( 'chi_nhanh_header');
+            $phone_number_contact = ot_get_option( 'phone_number_contact');
             $site_title = get_bloginfo( 'name' );
           ?>
             <a href="/" class="img-responsive">
@@ -162,7 +162,7 @@ wp_head(); ?>
 
 </div>
 
-<div class="hotline hidden-sm hidden-lg hidden-md hidden-sm" ><span class="hl">HOTLINE(miễn phí cước gọi): <a href="tel:1800 0022" style="font-size: 40px; color:#F26B35;">1800 0022</a> </span><br>
+<div class="hotline hidden-sm hidden-lg hidden-md hidden-sm" ><span class="hl">HOTLINE(miễn phí cước gọi): <a href="tel:<?php echo $phone_number_contact;?>" style="font-size: 40px; color:#F26B35;"><?php echo $phone_number_contact; ?></a> </span><br>
 
 
 </div>

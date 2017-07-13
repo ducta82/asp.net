@@ -51,6 +51,18 @@ function sango_setup() {
 	register_nav_menus( array(
 		'menu-2' => esc_html__( 'Second Menu', 'sango' ),
 	) );
+	register_nav_menus( array(
+		'menu-footer1' => esc_html__( 'Menu footer 1', 'sango' ),
+	) );
+	register_nav_menus( array(
+		'menu-footer2' => esc_html__( 'Second footer 2', 'sango' ),
+	) );
+	register_nav_menus( array(
+		'menu-footer3' => esc_html__( 'Second footer 3', 'sango' ),
+	) );
+	register_nav_menus( array(
+		'menu-footer4' => esc_html__( 'Second footer mini', 'sango' ),
+	) );
 	/*
 	 * Switch default core markup for search form, comment form, and comments
 	 * to output valid HTML5.
@@ -160,9 +172,9 @@ require get_template_directory() . '/inc/customizer.php';
 require get_template_directory() . '/inc/jetpack.php';
 
 /**
- * Load add image cat.
+ * custom post type address
  */
-//require get_template_directory() . '/inc/add-image-cat.php';
+require get_template_directory() . '/inc/custom-post-type-address.php';
 
 /**
 * Registers a new post type
@@ -651,12 +663,8 @@ if(!function_exists('get_sale_product')){
 		$cls = $i == 0 ? 'active' : '';
 		$start_div = $i == 0 ? '<div class="item '.$cls.'"><div class="row products-row">' : '';
 		$end_div = ($i+1)%$j == 0 && ($i+1) !== $post_count ? '</div></div><div class="item"><div class="row products-row">' : '';
-		//$item_wap = $j >= 6 && $i == 0 ? ' <div class="item '.$cls.'"><div class="owl-wrapper" style="width: 4672px; left: 0px; display: block; transition: all 300ms ease; transform: translate3d(0px, 0px, 0px);"><div class="owl-item" style="width: 1168px;">' : '';
-		//$end_item_wap = $j >=6 && ($i+1)%$j &&  ($i+1) !== $post_count? '</div></div><div class="owl-item" style="width: 1168px;"><div class="item">' : '';
-		//$end_item_wap_total = $j >=6 && ($i+1) == $post_count ? '</div></div>' : '';
 		$end_div_total = ($i+1) == $post_count ? '</div></div>' : '';
 		$price = get_field('product_price',get_the_id());
-		//echo $item_wap;
 		echo $start_div;
 		?>
 		<div class="col-lg-2 col-sm-2 col-xs-6  product-col border">

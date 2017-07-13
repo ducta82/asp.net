@@ -188,11 +188,24 @@ get_header(); ?>
                                                                         'parent' => 0
                                                                     ) );
                                                         foreach ($categories as $value) {
-                                                            $term_children = get_term_children( $value->term_id, 'cat-product' );
+                                                            $term_children = get_terms( 'cat-product', array(
+                                                                        'orderby'    => 'rand',
+                                                                        'hide_empty' => 0,
+                                                                        'number' => 4,
+                                                                        'parent' => $value->term_id
+                                                                    ) );
+                                                            ?>
+                                                            <div class="col-lg-3 col-md-3 col-sm-6">
+                                                                <div class="home_singleCategory"><a href="<?php echo get_term_link( $value->term_id, 'cat-product' );?>" title="Sàn Gỗ Malaysia"><img src="<?php echo THEME_URI;?>/image/catalog/banner/san-go-cong-nghiep-malaysia.jpg" width="265px"></a>
+                                                                    <h2><a title="Sàn Gỗ Malaysia" href="<?php echo  get_term_link( $value->term_id, 'cat-product' );?>"><?php echo $value->name;?></a></h2>
+                                                                    <ul>
+                                                            <?php
                                                             foreach ( $term_children as $child ) {
-                                                                $term = get_term_by( 'id', $child, 'cat-product' );
-                                                                echo '<li><a href="' . get_term_link( $child, 'cat-product' ) . '">' . $term->name . '</a></li>';
+                                                                ?>
+                                                                    <li><a title="<?php echo $child->name;?>" href="<?php echo get_term_link( $child->term_id, 'cat-product' );?>"><?php echo $child->name;?></a></li>
+                                                                <?php
                                                             }
+                                                            echo '<li class="line"><a class="seeAll" href="'.get_term_link( $value->term_id, 'cat-product' ).'">Xem tất cả</a></li></ul></div></div>';
                                                         }
                                                     ?>
                                                         <div class="col-lg-3 col-md-3 col-sm-6">
@@ -348,20 +361,7 @@ get_header(); ?>
                             </div>
                         </div>
                         <div class="pav-container  container ">
-                            <div class="pav-inner  ">
-
-                                <div class="row row-level-1 ">
-                                    <div class="row-inner clearfix">
-                                        <div class="col-lg-12 col-md-4 col-sm-6 col-xs-12 ">
-                                            <div class="col-inner ">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="pav-container  container ">
-                            <div class="pav-inner  ">
+                            <div class="pav-inner">
 
                                 <div class="row row-level-1 ">
                                     <div class="row-inner clearfix">
@@ -448,8 +448,7 @@ get_header(); ?>
                             </div>
                         </div>
                         <div class="pav-container  container ">
-                            <div class="pav-inner  ">
-
+                            <div class="pav-inner">
                                 <div class="row row-level-1 ">
                                     <div class="row-inner clearfix">
                                         <div class="col-lg-12 col-md-4 col-sm-6 col-xs-12 ">
@@ -460,94 +459,37 @@ get_header(); ?>
                                                     </div>
                                                     <div class="" style="border:1px solid #eee">
                                                         <div class="row">
-                                                            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 right">
-                                                                <div class="latest-posts-body" style="margin: 0 auto;width:90%;">
-
-                                                                    <div class="latest-posts-meta media-body">
-                                                                        <div class="latest-posts-image pull-left">
-                                                                            <a class="" href="#">
-                                                                                <a href="/dia-chi-tai-quang-ninh-cung-cap-san-go-chiu-nuoc-chat-luong-gia-re.html"><img src="<?php echo THEME_URI;?>/image/cache/catalog/1-san-go-gia-re/13-6/san go chiu nuoc tai Quang Ninh-300x200.jpg" title="Địa chỉ tại Quảng Ninh cung cấp sàn gỗ chịu nước chất lượng, giá rẻ" alt="Địa chỉ tại Quảng Ninh cung cấp sàn gỗ chịu nước chất lượng, giá rẻ" class="img-responsive"/></a>
-                                                                            </a>
-                                                                        </div>
-                                                                        <h6 class="latest-posts-title"><a href="/dia-chi-tai-quang-ninh-cung-cap-san-go-chiu-nuoc-chat-luong-gia-re.html" title="Địa chỉ tại Quảng Ninh cung cấp sàn gỗ chịu nước chất lượng, giá rẻ">Địa chỉ tại Quảng Ninh cung cấp sàn gỗ chịu nước chất lượng, giá rẻ</a></h6>
-
-                                                                        <div class="posts-meta">
-                                                                            <div class="description space-10">
+                                                        <?php 
+                                                            $args = array(
+                                                                'post_type' => 'post',
+                                                                'posts_per_page' => 4,
+                                                                'orderby' => 'date',
+                                                                'post_status' => 'publish',
+                                                                );              
+                                                            $the_query = new WP_Query( $args );
+                                                            if($the_query->have_posts() ) : 
+                                                                while ( $the_query->have_posts() ) : $the_query->the_post(); 
+                                                                $permalink_link = get_permalink();
+                                                                $title = get_the_title();
+                                                                ?>
+                                                                    <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 right">
+                                                                        <div class="latest-posts-body" style="margin: 0 auto;width:90%;">
+                                                                            <div class="latest-posts-meta">
+                                                                                <div class="latest-posts-image pull-left">
+                                                                                    <a href="<?php echo $permalink_link; ?>"><?php the_post_thumbnail('post-thumbnail',['class'=>'img-responsive'] ); ?></a>
+                                                                                </div>
+                                                                                <h6 class="latest-posts-title">
+                                                                                    <a href="<?php echo $permalink_link; ?>" title="<?php echo $title;?>"><?php echo $title;?></a>
+                                                                                </h6>
                                                                             </div>
-                                                                            <div class="btn-more-link hidden">
-                                                                                <a href="/dia-chi-tai-quang-ninh-cung-cap-san-go-chiu-nuoc-chat-luong-gia-re.html" class="readmore btn-link">Read more<i class="space-padding-l5 fa fa-angle-right"></i></a>
-                                                                            </div>
                                                                         </div>
+                                                                        <!-- end latest-posts-body -->
                                                                     </div>
-                                                                </div>
-                                                                <!-- end latest-posts-body -->
-                                                            </div>
-                                                            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 right">
-                                                                <div class="latest-posts-body" style="margin: 0 auto;width:90%;">
-
-                                                                    <div class="latest-posts-meta media-body">
-                                                                        <div class="latest-posts-image pull-left">
-                                                                            <a class="" href="#">
-                                                                                <a href="/san-go-chiu-nuoc-tai-trung-tam-janhome-thanh-hoa.html"><img src="<?php echo THEME_URI;?>/image/cache/catalog/1-san-go-gia-re/13-6/cach-chon-san-go-cong-nghiep-chiu-nuoc-tot-cho-phong-khach-300x200.jpg" title="Sàn gỗ chịu nước tại trung tâm JANHOME Thanh Hóa" alt="Sàn gỗ chịu nước tại trung tâm JANHOME Thanh Hóa" class="img-responsive"/></a>
-                                                                            </a>
-                                                                        </div>
-                                                                        <h6 class="latest-posts-title"><a href="/san-go-chiu-nuoc-tai-trung-tam-janhome-thanh-hoa.html" title="Sàn gỗ chịu nước tại trung tâm JANHOME Thanh Hóa">Sàn gỗ chịu nước tại trung tâm JANHOME Thanh Hóa</a></h6>
-
-                                                                        <div class="posts-meta">
-                                                                            <div class="description space-10">
-                                                                            </div>
-                                                                            <div class="btn-more-link hidden">
-                                                                                <a href="/san-go-chiu-nuoc-tai-trung-tam-janhome-thanh-hoa.html" class="readmore btn-link">Read more<i class="space-padding-l5 fa fa-angle-right"></i></a>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <!-- end latest-posts-body -->
-                                                            </div>
-                                                            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 right">
-                                                                <div class="latest-posts-body" style="margin: 0 auto;width:90%;">
-
-                                                                    <div class="latest-posts-meta media-body">
-                                                                        <div class="latest-posts-image pull-left">
-                                                                            <a class="" href="#">
-                                                                                <a href="/cach-nhan-biet-san-go-chiu-nuoc-chat-luong-tai-thi-truong-lao-cai.html"><img src="<?php echo THEME_URI;?>/image/cache/catalog/1-san-go-gia-re/13-6/san-go-cong-nghiep-chiu-nuoc-300x200.jpg" title="Cách nhận biết sàn gỗ chịu nước chất lượng tại thị trường Lào Cai" alt="Cách nhận biết sàn gỗ chịu nước chất lượng tại thị trường Lào Cai" class="img-responsive"/></a>
-                                                                            </a>
-                                                                        </div>
-                                                                        <h6 class="latest-posts-title"><a href="/cach-nhan-biet-san-go-chiu-nuoc-chat-luong-tai-thi-truong-lao-cai.html" title="Cách nhận biết sàn gỗ chịu nước chất lượng tại thị trường Lào Cai">Cách nhận biết sàn gỗ chịu nước chất lượng tại thị trường Lào Cai</a></h6>
-
-                                                                        <div class="posts-meta">
-                                                                            <div class="description space-10">
-                                                                            </div>
-                                                                            <div class="btn-more-link hidden">
-                                                                                <a href="/cach-nhan-biet-san-go-chiu-nuoc-chat-luong-tai-thi-truong-lao-cai.html" class="readmore btn-link">Read more<i class="space-padding-l5 fa fa-angle-right"></i></a>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <!-- end latest-posts-body -->
-                                                            </div>
-                                                            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 right">
-                                                                <div class="latest-posts-body" style="margin: 0 auto;width:90%;">
-
-                                                                    <div class="latest-posts-meta media-body">
-                                                                        <div class="latest-posts-image pull-left">
-                                                                            <a class="" href="#">
-                                                                                <a href="/trung-tam-janhome-phan-phoi-san-go-gia-re-chat-luong-tai-nghe-an.html"><img src="<?php echo THEME_URI;?>/image/cache/catalog/1-san-go-gia-re/13-6/San-go-chiu-nuoc-tot-nhat-300x200.jpg" title="Trung tâm JANHOME phân phối sàn gỗ chịu nước, chất lượng tại Nghệ An" alt="Trung tâm JANHOME phân phối sàn gỗ chịu nước, chất lượng tại Nghệ An" class="img-responsive"/></a>
-                                                                            </a>
-                                                                        </div>
-                                                                        <h6 class="latest-posts-title"><a href="/trung-tam-janhome-phan-phoi-san-go-gia-re-chat-luong-tai-nghe-an.html" title="Trung tâm JANHOME phân phối sàn gỗ chịu nước, chất lượng tại Nghệ An">Trung tâm JANHOME phân phối sàn gỗ chịu nước, chất lượng tại Nghệ An</a></h6>
-
-                                                                        <div class="posts-meta">
-                                                                            <div class="description space-10">
-                                                                            </div>
-                                                                            <div class="btn-more-link hidden">
-                                                                                <a href="/trung-tam-janhome-phan-phoi-san-go-gia-re-chat-luong-tai-nghe-an.html" class="readmore btn-link">Read more<i class="space-padding-l5 fa fa-angle-right"></i></a>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <!-- end latest-posts-body -->
-                                                            </div>
+                                                                <?php
+                                                                endwhile;
+                                                            endif;
+                                                            wp_reset_postdata();    
+                                                        ?>
                                                         </div>
                                                     </div>
                                                 </div>

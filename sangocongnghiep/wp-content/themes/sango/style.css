@@ -98,7 +98,35 @@ img{
 textarea#comment{
     max-width: 100%;
 }
-
+.home_singleCategory ul{
+    min-height: 147px;
+}
+.latest-posts-image.pull-left,.latest-posts-image.pull-left a{
+    width: 100%;
+}
+.latest-posts-image.pull-left{
+    overflow: hidden;
+    max-height: 181px;
+}
+.latest-posts-image.pull-left a img{
+    margin: 0 auto;
+    display: block;
+    max-width: 100%;
+}
+.panel-heading a:focus, a.collapsed {
+    text-transform: capitalize;
+}
+#footer ul li{
+    padding: 0;
+}
+ul#menu-menu-footer-mini li{
+    display: inline-block;
+    border-left: 1px solid #909090;
+    margin-left: 8px;
+    margin-bottom: 5px;
+    padding-left: 6px;
+    line-height: 9px;
+}
 @media screen and (max-width: 992px){
     .row-offcanvas-left{
         z-index: 9999;
