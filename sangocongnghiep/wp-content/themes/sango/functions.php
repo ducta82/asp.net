@@ -135,8 +135,15 @@ add_action( 'widgets_init', 'sango_widgets_init' );
  */
 function sango_scripts() {
 	wp_enqueue_style( 'sango-style', get_stylesheet_uri() );
-
-	//wp_enqueue_script( 'sango-navigation', get_template_directory_uri() . '/js/navigation.js', array(), '20151215', true );
+	wp_enqueue_script( 'sango-jquery', get_template_directory_uri() . '/catalog/view/javascript/jquery/jquery-2.1.1.min.js', array(), '', false );
+	wp_enqueue_script( 'sango-magnific-popup', get_template_directory_uri() . '/catalog/view/javascript/jquery/magnific/jquery.magnific-popup.min.js', array(), '', true );
+	wp_enqueue_script( 'sango-bootstrap', get_template_directory_uri() . '/catalog/view/javascript/bootstrap/js/bootstrap.min.js', array(), '', false );
+	wp_enqueue_script( 'sango-carousel', get_template_directory_uri() . '/catalog/view/javascript/jquery/owl-carousel/owl.carousel.min.js', array(), '', false );
+	wp_enqueue_script( 'sango-countdown', get_template_directory_uri() . '/catalog/view/javascript/pavdeals/countdown.js', array(), '', true );
+	wp_enqueue_script( 'sango-themepunch-plugins', get_template_directory_uri() . '/catalog/view/javascript/layerslider/jquery.themepunch.plugins.min.js', array(), '', false );
+	wp_enqueue_script( 'sango-themepunch-revolution', get_template_directory_uri() . '/catalog/view/javascript/layerslider/jquery.themepunch.revolution.min.js', array(), '', false );
+	wp_enqueue_script( 'sango-common', get_template_directory_uri() . '/catalog/view/javascript/common.js', array(), '', true );
+	wp_enqueue_script( 'sango-lexusgolmartcommon', get_template_directory_uri() . '/catalog/view/theme/lexus_golmart/javascript/common.js', array(), '', true );
 
 	//wp_enqueue_script( 'sango-skip-link-focus-fix', get_template_directory_uri() . '/js/skip-link-focus-fix.js', array(), '20151215', true );
 
@@ -563,15 +570,27 @@ class sango_widget extends WP_Widget {
     /** @see WP_Widget::widget -- do not rename this */
     function widget($args, $instance) {	
         extract( $args );
-        $title 		= apply_filters('widget_title', $instance['title']);
-        $message 	= $instance['message'];
+        $category_id 	= $instance['category_id'];
+        $term = get_term_by('id', $category_id, 'cat-product');
+        $child_term = get_term_children( $category_id, 'cat-product' );
         ?>
               <?php echo $before_widget; ?>
-                  <?php if ( $title )
-                        echo $before_title . $title . $after_title; ?>
-							<ul>
-								<li><?php echo $message; ?></li>
-							</ul>
+              <div class="panel panel-primary panel-v3 category">
+	                <div class="panel panel-default">
+	                    <div class="bg-default-sale panel-heading">
+	                        <h4 class="panel-title white font-size-14"><a href="<?php echo get_term_link( $term->term_id, 'cat-product' );?>"><?php echo $term->name;?></a></h4></div>
+	                </div>
+	                <div class="panel-body tree-menu">
+	                    <ul id="accordion1" class="accordion">
+	                    <?php
+	                    	foreach ( $child_term as $child ) {
+								$terms = get_term_by( 'id', $child, 'cat-product' );
+								echo '<li><a href="' . get_term_link( $child, 'cat-product' ) . '">' . $terms->name . '</a></li>';
+							}
+	                    ?>
+	                    </ul>
+	                </div>
+	            </div>
               <?php echo $after_widget; ?>
         <?php
     }
@@ -579,29 +598,18 @@ class sango_widget extends WP_Widget {
     /** @see WP_Widget::update -- do not rename this */
     function update($new_instance, $old_instance) {		
 		$instance = $old_instance;
-		$instance['title'] = strip_tags($new_instance['title']);
-		$instance['message'] = strip_tags($new_instance['message']);
+		$instance['category_id'] = strip_tags($new_instance['category_id']);
         return $instance;
     }
  
     /** @see WP_Widget::form -- do not rename this */
     function form($instance) {	
-        $title 		= esc_attr($instance['title']);
-        $message	= esc_attr($instance['message']);
-        $args = array('taxonomy'=>array('category', 'cat-product'),
-        			  'selected' => 1);
-        $allcat = wp_dropdown_categories($args);
-        $categories = get_terms( array('category', 'cat-product'), $get_terms_args );
-        ?>
-         <p>
-          <label for="<?php echo $this->get_field_id('title'); ?>"><?php _e('Title:'); ?></label> 
-          <input class="widefat" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" type="text" value="<?php echo $title; ?>" />
-        </p>
-		<p>
-          <label for="<?php echo $this->get_field_id('message'); ?>"><?php _e('Simple Message'); ?></label> 
-          <input class="widefat" id="<?php echo $this->get_field_id('message'); ?>" name="<?php echo $this->get_field_name('message'); ?>" type="text" value="<?php echo $message; ?>" />
-        </p>
-        <?php 
+        $categories = get_terms( array('taxonomy'=> 'cat-product','hide_empty' => false));
+        echo '<select id="'.$this->get_field_id('category_id').'" name="'.$this->get_field_name('category_id').'" class="category_filter">';
+        foreach ($categories as $value) {
+            echo '<option '.selected( $instance['category_id'], $value->term_id).' value="'.$value->term_id.'">'.$value->name.'</option>';
+        }
+        echo '</select>';
     }
 } // end class example_widget
 
@@ -624,23 +632,6 @@ return $fields;
 }
 add_filter( 'comment_form_fields', 'wpb_move_comment_field_to_bottom' );
 
-add_filter( 'pre_get_posts', 'tgm_io_cpt_search' );
-/**
- * This function modifies the main WordPress query to include an array of 
- * post types instead of the default 'post' post type.
- *
- * @param object $query  The original query.
- * @return object $query The amended query.
- */
-function tgm_io_cpt_search( $query ) {
-	
-    if ( $query->is_search ) {
-	$query->set( 'post_type', array( 'product', 'post' ) );
-    }
-    
-    return $query;
-    
-}
 
 /*
 * get sản phẩm khuyển mãi 

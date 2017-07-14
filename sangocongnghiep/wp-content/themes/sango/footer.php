@@ -8,7 +8,7 @@
  *
  * @package sango
  */
-
+$phone_number_contact = ot_get_option( 'phone_number_contact');
 ?>
 <script> $(document).ready(function(){
   $('.online-support').hide();
@@ -95,19 +95,31 @@
                 //$cls = $i== 1 && $m == 1 ? 'true' : 'false';
                 $sub_start = $m == 1 ? '<div class="panel-collapse collapse" id="'.$address[$l-1]->slug.'" aria-expanded="false"><div class="panel-body"><div class="table-responsive"><table width="100%" class="table"><tbody><tr>' : '';
                 $sub_end = $m == $the_query->found_posts ? '</tr></tbody></table></div></div></div>' :'';
-                echo $sub_start;
-                echo '<td class="border-rb no-border-top">
-                        <div class="sapkhaitruong"> JANHOME '.get_the_title().'</div>
-                        <div class="add-mart">ĐT: <a href="tel:18000022" style="color:blue">1800 0022</a> </div> <a class="map-mart" href="#" style="color:blue">Bản đồ đường đi</a> 
-                        </td>';
-                echo $sub_end;                    
+                $id = get_the_id();
+                $phone = get_field('address_phone',$id);
+                $sapkhaitruong = get_field('address_sapkhaitruong',$id);
+                if($sapkhaitruong == 'yes'){
+                  echo $sub_start;
+                  echo '<td class="border-rb no-border-top">
+                          <div class="sapkhaitruong"> JANHOME '.get_the_title().'</div>
+                          <div class="add-mart">ĐT: <a href="tel:'.$phone.'" style="color:blue">'.$phone.'</a> </div> <a class="map-mart" href="#" style="color:blue">Bản đồ đường đi</a> 
+                          </td>';
+                  echo $sub_end;
+                }else{
+                   echo '<div class="panel-collapse collapse" id="'.$address[$l-1]->slug.'" aria-expanded="false">
+                        <div class="panel-body">
+                            <div class="sapkhaitruong"> JANHOME '.$address[$l-1]->name.'</div>
+                            <div class="add-mart">ĐT: <a href="tel:'.$phone.'" style="color:blue">'.$phone.'</a> </div> <a class="map-mart" href="#" style="color:blue">Bản đồ đường đi</a> <span class="opened"></span> 
+                        </div>
+                        </div>';
+                }                    
                 $m++; endwhile;
             wp_reset_postdata();  
             }else{
                 echo '<div class="panel-collapse collapse" id="'.$address[$l-1]->slug.'" aria-expanded="false">
                         <div class="panel-body">
                             <div class="sapkhaitruong"> JANHOME '.$address[$l-1]->name.'</div>
-                            <div class="add-mart">ĐT: <a href="tel:18000022" style="color:blue">1800 0022</a> </div> <a class="map-mart" href="#" style="color:blue">Bản đồ đường đi</a> <span class="opened"></span> 
+                            <div class="add-mart">ĐT: <a href="tel:'.$phone_number_contact.'" style="color:blue">'.$phone_number_contact.'</a> </div> <a class="map-mart" href="#" style="color:blue">Bản đồ đường đi</a> <span class="opened"></span> 
                         </div>
                         </div>';
             }
@@ -255,8 +267,7 @@
         </div>
 
         <div class="col-xs-12 col-sm-6 col-md-3 column">
-        <?php $phone_number_contact = ot_get_option( 'phone_number_contact');?>
-         <div class="custom-logo" style="line-height: 1.4;"><address class="space-top-10"><span style="font-weight: bold; text-transform: uppercase; line-height: 1.42857;">HỆ THỐNG BÁN LẺ VẬT LIỆU HOÀN THIỆN TẠI KHO<br></span><span style="font-weight: bold;">HOTLINE</span> : <a href="tel:18000022"><?php echo $phone_number_contact;?></a></address></div>
+         <div class="custom-logo" style="line-height: 1.4;"><address class="space-top-10"><span style="font-weight: bold; text-transform: uppercase; line-height: 1.42857;">HỆ THỐNG BÁN LẺ VẬT LIỆU HOÀN THIỆN TẠI KHO<br></span><span style="font-weight: bold;">HOTLINE</span> : <a href="<?php echo $phone_number_contact;?>"><?php echo $phone_number_contact;?></a></address></div>
 
 			<iframe width="100%" height="220" src="https://www.google.com/maps/d/embed?mid=1xHioeCHPf5Iaj6FQeLRtVjrfeX0"></iframe>
 

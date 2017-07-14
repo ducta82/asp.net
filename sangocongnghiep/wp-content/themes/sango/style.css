@@ -113,7 +113,7 @@ textarea#comment{
     display: block;
     max-width: 100%;
 }
-.panel-heading a:focus, a.collapsed {
+.panel-heading a:focus, a.collapsed, .panel-heading a {
     text-transform: capitalize;
 }
 #footer ul li{
@@ -126,6 +126,9 @@ ul#menu-menu-footer-mini li{
     margin-bottom: 5px;
     padding-left: 6px;
     line-height: 9px;
+}
+.autosearch-wrapper .input-group-btn:after{
+    height: 37px;
 }
 @media screen and (max-width: 992px){
     .row-offcanvas-left{

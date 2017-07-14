@@ -78,35 +78,6 @@ get_header(); ?>
 							                                <meta content=" " itemprop="priceCurrency ">
 							                            </div>
 							                        </div>
-							                        <div class="bottom ">
-							                            <div class="action ">
-							                                <div class="cart ">
-							                                    <button data-loading-text="Loading... " class="btn btn-dark btn-md " type="button " onclick="cart.addcart( '6328'); ">
-							                                        <i class="md md-add-shopping-cart "></i>
-							                                        <span class=" ">Mua hàng</span>
-							                                    </button>
-							                                </div>
-							                                <div class="wishlist ">
-							                                    <button class="btn btn-dark btn-md " type="button " title="Add to Wish List " onclick="wishlist.addwishlist( '6328'); "><i class="fa fa-heart "></i><span class=" ">Add to Wish List</span></button>
-							                                </div>
-
-							                                <div class="compare ">
-							                                    <button class="btn btn-dark btn-md " type="button " title="Add to Compare " onclick="compare.addcompare( '6328'); "><i class="fa fa-refresh "></i><span class=" ">Add to Compare</span></button>
-							                                </div>
-							                                <!-- zoom image-->
-							                                <div class="zoom ">
-							                                    <a href="/image/catalog/san-gia-re/0212-1-8mm.jpg " class="product-zoom btn btn-dark btn-md " title="Sàn gỗ Ecofloor 0212-1-8mm ">
-							                                        <i class="fa fa-search-plus "></i>
-							                                        <span>zoom</span>
-							                                    </a>
-							                                </div>
-							                                <p class="quickview space-margin-tb-10 ">
-							                                    <a class="iframe-link " href="/index.php?route=themecontrol/product&amp;product_id=6328 " title="Quick View ">
-							                                        <span>Quick View</span>
-							                                    </a>
-							                                </p>
-							                            </div>
-							                        </div>
 							                    </div>
 							                </div>
 							            </div>

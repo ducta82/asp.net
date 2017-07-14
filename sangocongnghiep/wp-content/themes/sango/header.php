@@ -23,21 +23,8 @@
 <link href="<?php echo THEME_URI;?>/catalog/view/theme/lexus_golmart/stylesheet/material-design-iconic-font.min.css" rel="stylesheet" />
 <link href="<?php echo THEME_URI;?>/catalog/view/javascript/jquery/magnific/magnific-popup.css" rel="stylesheet" />
 <link href="<?php echo THEME_URI;?>/catalog/view/javascript/jquery/owl-carousel/owl.carousel.css" rel="stylesheet" />
-<link href="<?php echo THEME_URI;?>/catalog/view/theme/lexus_golmart/stylesheet/fonts.css" rel="stylesheet" />
 <link href="<?php echo THEME_URI;?>/catalog/view/theme/lexus_golmart/stylesheet/homebuilder.css" rel="stylesheet" />
 <link href="<?php echo THEME_URI;?>/catalog/view/theme/lexus_golmart/stylesheet/sliderlayer/css/typo.css" rel="stylesheet" />
-<link href="<?php echo THEME_URI;?>/catalog/view/theme/lexus_golmart/stylesheet/pavdeals.css" rel="stylesheet" />
-<link href="<?php echo THEME_URI;?>/catalog/view/theme/lexus_golmart/stylesheet/pavproductcarousel.css" rel="stylesheet" />
-<link href="<?php echo THEME_URI;?>/catalog/view/theme/lexus_golmart/stylesheet/pavblog.css" rel="stylesheet" />
-<script type="text/javascript" src="<?php echo THEME_URI;?>/catalog/view/javascript/jquery/jquery-2.1.1.min.js"></script>
-<script type="text/javascript" src="<?php echo THEME_URI;?>/catalog/view/javascript/jquery/magnific/jquery.magnific-popup.min.js"></script>
-<script type="text/javascript" src="<?php echo THEME_URI;?>/catalog/view/javascript/bootstrap/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="<?php echo THEME_URI;?>/catalog/view/javascript/jquery/owl-carousel/owl.carousel.min.js"></script>
-<script type="text/javascript" src="<?php echo THEME_URI;?>/catalog/view/javascript/pavdeals/countdown.js"></script>
-<script type="text/javascript" src="<?php echo THEME_URI;?>/catalog/view/javascript/layerslider/jquery.themepunch.plugins.min.js"></script>
-<script type="text/javascript" src="<?php echo THEME_URI;?>/catalog/view/javascript/layerslider/jquery.themepunch.revolution.min.js"></script>
-<script type="text/javascript" src="<?php echo THEME_URI;?>/catalog/view/javascript/common.js"></script>
-<script type="text/javascript" src="<?php echo THEME_URI;?>/catalog/view/theme/lexus_golmart/javascript/common.js"></script>
 
 <!-- CUSTOM FONT -->
 <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Open+Sans"/>
@@ -97,6 +84,12 @@ wp_head(); ?>
                 class="searchform" action="<?php echo esc_url( home_url( '/' ) ); ?>">
           			<div id="search0" class="input-group">
           				<input class="search_query form-control" type="text" value="<?php echo get_search_query(); ?>" name="s" size="35" autocomplete="off" placeholder="Tìm sản phẩm tại đây.." name="search">	
+                  <div class="input-group-btn">
+                      <select name="post_type" class="category_filter">
+                        <option value="post">Bài viết</option>
+                        <option value="product">Sản phẩm</option>   
+                      </select>
+                  </div>
           				<button type="submit" class="button-search autosearch-submit btn btn-default"><i class="fa fa-search"></i></button>    
           			</div>
         			</form>

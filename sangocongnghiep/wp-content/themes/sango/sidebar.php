@@ -7,16 +7,16 @@
  * @package sango
  */
 
-/*if ( ! is_active_sidebar( 'sidebar-1' ) ) {
+if ( ! is_active_sidebar( 'sidebar-1' ) ) {
 	return;
-}*/
+}
 $id_aside = is_tax( 'cat-product') || is_singular('product') ? 'sidebar-right' : 'sidebar-left';
 ?>
-<?php dynamic_sidebar( 'sidebar-1' ); ?>
 <aside id="<?php echo $id_aside;?>" class="col-md-3">
 <column id="column-right" class="hidden-xs sidebar">
     <div class="widget-html">
         <div class="widget-inner">
+            <?php dynamic_sidebar( 'sidebar-1' ); ?>
             <div class="panel panel-primary panel-v3 category">
                 <div class="panel panel-default">
                     <div class="bg-default-sale panel-heading">

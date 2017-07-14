@@ -6,7 +6,7 @@
  *
  * @package sango
  */
-if(is_category()){
+if(is_category() || is_search()){
 ?>
 <div class="pavcol20">
 	<div class="blog-item">

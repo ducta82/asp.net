@@ -115,7 +115,7 @@ if(is_single()){
                 </div>
                 <div class="product-meta">
                     <div class="top">
-                        <h3 class="name" itemprop="name"><a href="https://sango.com.vn/san-go-ecofloor-0212-1-8mm.html"><?php the_title();?></a></h3>
+                        <h3 class="name" itemprop="name"><a href="<?php the_permalink(); ?>"><?php the_title();?></a></h3>
                         <!-- <div class="rating">
                             <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
                             <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
