@@ -196,8 +196,15 @@ get_header(); ?>
                                                                     ) );
                                                             ?>
                                                             <div class="col-lg-3 col-md-3 col-sm-6">
-                                                                <div class="home_singleCategory"><a href="<?php echo get_term_link( $value->term_id, 'cat-product' );?>" title="Sàn Gỗ Malaysia"><img src="<?php echo THEME_URI;?>/image/catalog/banner/san-go-cong-nghiep-malaysia.jpg" width="265px"></a>
-                                                                    <h2><a title="Sàn Gỗ Malaysia" href="<?php echo  get_term_link( $value->term_id, 'cat-product' );?>"><?php echo $value->name;?></a></h2>
+                                                                <div class="home_singleCategory">
+                                                                    <?php $img_src =  get_field('pic_category','cat-product_'.$value->term_id) ? get_field('pic_category','cat-product_'.$value->term_id) : THEME_URI.'/image/catalog/banner/san-go-cong-nghiep-malaysia.jpg';
+                                                                    ?>
+                                                                    <a href="<?php echo get_term_link( $value->term_id, 'cat-product' );?>" title="><?php echo $value->name;?>">
+                                                                        <img src="<?php echo $img_src;?>" width="265px" style="min-height: 161px;">
+                                                                    </a>
+                                                                    <h2>
+                                                                        <a title="><?php echo $value->name;?>" href="<?php echo  get_term_link( $value->term_id, 'cat-product' );?>"><?php echo $value->name;?></a>
+                                                                    </h2>
                                                                     <ul>
                                                             <?php
                                                             foreach ( $term_children as $child ) {

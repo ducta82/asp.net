@@ -56,15 +56,11 @@ get_header(); ?>
 		                        <div class="sort pull-right">
 		                            <span for="input-sort">Sắp xếp theo:</span>
 		                            <select id="input-sort" class="form-control" onchange="location = this.value;">
-		                                <option value="https://sango.com.vn/san-go-ecofloor?sort=p.sort_order&amp;order=ASC">Mặc định</option>
-		                                <option value="https://sango.com.vn/san-go-ecofloor?sort=pd.name&amp;order=ASC">Tên (A - Z)</option>
-		                                <option value="https://sango.com.vn/san-go-ecofloor?sort=pd.name&amp;order=DESC">Tên (Z - A)</option>
-		                                <option value="https://sango.com.vn/san-go-ecofloor?sort=p.price&amp;order=ASC" selected="selected">Giá (Thấp &gt; Cao)</option>
-		                                <option value="https://sango.com.vn/san-go-ecofloor?sort=p.price&amp;order=DESC">Giá (Cao &gt; Thấp)</option>
-		                                <option value="https://sango.com.vn/san-go-ecofloor?sort=rating&amp;order=DESC">Đánh giá (Cao nhất)</option>
-		                                <option value="https://sango.com.vn/san-go-ecofloor?sort=rating&amp;order=ASC">Đánh giá (Thấp nhất)</option>
-		                                <option value="https://sango.com.vn/san-go-ecofloor?sort=p.model&amp;order=ASC">Kiểu (A - Z)</option>
-		                                <option value="https://sango.com.vn/san-go-ecofloor?sort=p.model&amp;order=DESC">Kiểu (Z - A)</option>
+		                                <option value="<?=get_term_link( $term_id, $taxonomy_name );?>?order=ASC" <?php selected( $_GET['order'], 'ASC' ); ?>>Mặc định</option>
+		                                <option value="<?=get_term_link( $term_id, $taxonomy_name );?>?order=ASC&amp;order_by=name" <?php selected( $_GET['order_by'].'&'.$_GET['order'], 'name&ASC' ); ?>>Tên (A - Z)</option>
+		                                <option value="<?=get_term_link( $term_id, $taxonomy_name );?>?order=DESC&amp;order_by=name" <?php selected( $_GET['order_by'].'&'.$_GET['order'], 'name&DESC' ); ?>>Tên (Z - A)</option>
+		                                <option value="<?=get_term_link( $term_id, $taxonomy_name );?>?order=ASC&amp;order_by=price" <?php selected( $_GET['order_by'].'&'.$_GET['order'], 'price&ASC' ); ?>>Giá (Thấp &gt; Cao)</option>
+		                                <option value="<?=get_term_link( $term_id, $taxonomy_name );?>?order=DESC&amp;order_by=price" <?php selected( $_GET['order_by'].'&'.$_GET['order'], 'price&ASC' ); ?>>Giá (Cao &gt; Thấp)</option>
 		                            </select>
 		                        </div>
 		                    </div>
@@ -76,6 +72,22 @@ get_header(); ?>
 									if ( have_posts() ) : 
 									global $i;
 									$i = 1;
+									$order_by = $_GET['order_by'];
+									if($order_by == 'price'){
+										function my_pre_get_posts( $query) {
+											$order = $_GET['order'];
+											if( is_admin() ) {
+												return $query;
+											}
+											if( isset($query->query_vars['post_type']) && $query->query_vars['post_type'] == 'product' ) {
+												$query->set('orderby', 'meta_value_num');	
+												$query->set('meta_key', 'product_price');	 
+												$query->set('order', $order); 
+											}
+											return $query;
+										}
+										add_action('pre_get_posts', 'my_pre_get_posts');
+									}
 									while ( have_posts() ) : the_post();
 
 										/*

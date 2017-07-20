@@ -50,18 +50,14 @@ $phone_number_contact = ot_get_option( 'phone_number_contact');
     <div id="accordion" class="panel-group">
     <p style="text-align: center;    color: #2957a4;    font-weight: 600;font-size: 20px;">HỆ THỐNG BÁN HÀNG TẠI KHO JANHOME<br></p>
 <?php
-    $address = get_terms( 'cat-address', array(
-                    'order'=> 'DESC',
-                    'orderby' => 'none',
-                    'hide_empty' => 0,
-                    'parent' => 0
-                ) );
+    global $address, $shop_name;
     $count = count($address);   
     $y = $count%7;
-    $x = (($count - $y)/7)+1;
-    $arg = array('one','two','three');
+    $x = $y !== 0 ? (($count - $y)/7)+1 : $count/7 ;
+    //$x = (($count - $y)/7)+1;
+    //$arg = array('one','two','three');
     //print_r(array_slice($address, 7));exit();
-    $arg2 = array();
+    //$arg2 = array();
     for ($i=1; $i <= $x ; $i++) { 
         $j = $i == $x ? $y : 7 ;
         echo '<div class="panel panel-default" style="background:#ffffff">';
@@ -101,14 +97,14 @@ $phone_number_contact = ot_get_option( 'phone_number_contact');
                 if($sapkhaitruong == 'yes'){
                   echo $sub_start;
                   echo '<td class="border-rb no-border-top">
-                          <div class="sapkhaitruong"> JANHOME '.get_the_title().'</div>
+                          <div class="sapkhaitruong">'.$shop_name.' '.get_the_title().'</div>
                           <div class="add-mart">ĐT: <a href="tel:'.$phone.'" style="color:blue">'.$phone.'</a> </div> <a class="map-mart" href="#" style="color:blue">Bản đồ đường đi</a> 
                           </td>';
                   echo $sub_end;
                 }else{
                    echo '<div class="panel-collapse collapse" id="'.$address[$l-1]->slug.'" aria-expanded="false">
                         <div class="panel-body">
-                            <div class="sapkhaitruong"> JANHOME '.$address[$l-1]->name.'</div>
+                            <div class="sapkhaitruong">'.$shop_name.' '.$address[$l-1]->name.'</div>
                             <div class="add-mart">ĐT: <a href="tel:'.$phone.'" style="color:blue">'.$phone.'</a> </div> <a class="map-mart" href="#" style="color:blue">Bản đồ đường đi</a> <span class="opened"></span> 
                         </div>
                         </div>';
@@ -118,7 +114,7 @@ $phone_number_contact = ot_get_option( 'phone_number_contact');
             }else{
                 echo '<div class="panel-collapse collapse" id="'.$address[$l-1]->slug.'" aria-expanded="false">
                         <div class="panel-body">
-                            <div class="sapkhaitruong"> JANHOME '.$address[$l-1]->name.'</div>
+                            <div class="sapkhaitruong">'.$shop_name.' '.$address[$l-1]->name.'</div>
                             <div class="add-mart">ĐT: <a href="tel:'.$phone_number_contact.'" style="color:blue">'.$phone_number_contact.'</a> </div> <a class="map-mart" href="#" style="color:blue">Bản đồ đường đi</a> <span class="opened"></span> 
                         </div>
                         </div>';

@@ -127,6 +127,7 @@ function sango_widgets_init() {
 		'after_title'   => '</h2>',
 	) );
 	register_widget("sango_widget");
+	register_widget("showpost_Widget");
 }
 add_action( 'widgets_init', 'sango_widgets_init' );
 
@@ -557,7 +558,7 @@ if(!function_exists('get_custom_field_by_id')){
 }
 
 /**
- * Example Widget Class
+ * category Widget Class
  */
 class sango_widget extends WP_Widget {
  
@@ -611,8 +612,116 @@ class sango_widget extends WP_Widget {
         }
         echo '</select>';
     }
-} // end class example_widget
+} // end class sango_widget
 
+/**
+ * new WordPress Widget format
+ */
+class showpost_Widget extends WP_Widget {
+    function showpost_Widget() {
+        $widget_ops = array( 'description' => 'Hiển thị 1 hoặc nhiều bài viết mới' );
+        $this->WP_Widget( '','Hiển thị bài viết mới nhất', $widget_ops );
+    }
+    function widget( $args, $instance ) {
+        if ( ! isset( $args['widget_id'] ) ) {
+			$args['widget_id'] = $this->id;
+		}
+
+		$post_title = ( ! empty( $instance['post_title'] ) ) ? $instance['post_title'] : __( 'Recent Posts' );
+
+		$post_number = ( ! empty( $instance['post_number'] ) ) ? absint( $instance['post_number'] ) : 1;
+		if ( ! $post_number )
+			$post_number = 1;
+
+		/**
+		 * Filters the arguments for the Recent Posts widget.
+		 *
+		 * @since 3.4.0
+		 *
+		 * @see WP_Query::get_posts()
+		 *
+		 * @param array $args An array of arguments used to retrieve the recent posts.
+		 */
+		$r = new WP_Query( apply_filters( 'widget_posts_args', array(
+			'posts_per_page'      => $post_number,
+			'no_found_rows'       => true,
+			'post_status'         => 'publish',
+			'ignore_sticky_posts' => true
+		) ) );
+		echo '<div class="panel-orange sidebar panel-v3 productcarousel">';
+		if ($r->have_posts()) :
+		?>
+		<?php echo $args['before_widget']; ?>
+		<?php if ( $post_title ) {
+			echo '<div class="panel-heading" style="border-top-width: 3px;border-top-style: solid;">';
+			echo '<h4 class="panel-title">'.$post_title .'</h4>';
+			echo '</div>';
+		} ?>
+		<div class="" style="border:1px solid #eee">
+			<div class="row">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 right">	
+					<div class="latest-posts-body" style="margin: 0 auto;width:90%;">
+					<?php while ( $r->have_posts() ) : $r->the_post(); ?>
+						<div class="box-post">
+							<div class="latest-posts-image pull-left">
+								<style type="text/css" media="screen">
+									.latest-posts-image.pull-left img{
+										width: 100%;
+									}
+								</style>
+								<a href="<?php the_permalink(); ?>">
+									<?=get_the_post_thumbnail();?>
+								</a>
+							</div>							  	
+							<div>
+						  		<h6 class="latest-posts-title">
+						  			<a href="<?php the_permalink(); ?>" title="<?php get_the_title() ? the_title() : the_ID(); ?>"><?php get_the_title() ? the_title() : the_ID(); ?></a>
+						  		</h6>
+							</div>
+						</div>
+					<?php endwhile; ?>
+					</div> <!-- end latest-posts-body -->
+				</div>
+			</div>
+		</div>
+		</div>	
+		<?php echo $args['after_widget']; ?>
+		<?php
+		// Reset the global $the_post as this query will have stomped on it
+		wp_reset_postdata();
+
+		endif;
+    echo $after_widget;
+    }
+    function update( $new_instance, $old_instance ) {
+		$instance = $old_instance;
+		$instance['post_title'] = sanitize_text_field( $new_instance['post_title'] );
+		$instance['post_number'] = (int) $new_instance['post_number'];
+		return $instance;
+    }
+    function form( $instance ) {
+		$post_title     = isset( $instance['post_title'] ) ? esc_attr( $instance['post_title'] ) : '';
+		$post_number    = isset( $instance['post_number'] ) ? absint( $instance['post_number'] ) : 1;
+    	?>
+		<p><label for="<?php echo $this->get_field_id( 'post_title' ); ?>"><?php _e( 'Title:' ); ?></label>
+		<input class="widefat" id="<?php echo $this->get_field_id( 'post_title' ); ?>" name="<?php echo $this->get_field_name( 'post_title' ); ?>" type="text" value="<?php echo $post_title; ?>" /></p>
+
+		<p><label for="<?php echo $this->get_field_id( 'post_number' ); ?>"><?php _e( 'Number of posts to show:' ); ?></label>
+		<input class="tiny-text" id="<?php echo $this->get_field_id( 'post_number' ); ?>" name="<?php echo $this->get_field_name( 'post_number' ); ?>" type="number" step="1" min="1" value="<?php echo $post_number; ?>" size="3" /></p>
+		<?php
+    }
+}
+
+/*
+* tag cloud 
+*/
+function tag_cloud_filter($args = array()) {
+ $args['smallest'] = 1.3;
+ $args['largest'] = 2;
+ $args['unit'] = 'em';
+ return $args;
+}
+add_filter('widget_tag_cloud_args', 'tag_cloud_filter', 90);
 /*
 * Custom comment form
 */
@@ -689,3 +798,7 @@ if(!function_exists('get_sale_product')){
     endif;                                       	                            
 	}
 }
+
+/*
+* custom metabox cat-product
+*/

@@ -56,6 +56,14 @@ wp_head(); ?>
   $product_cls = is_singular('product') ? 'page-product layout-boxed-lg': '' ;
   $cat_cls = is_single() && !is_singular('product') ? 'pavblog-blog page-pavblog-blog layout-boxed-lg': '' ;
   $cat_cls = is_category() ? 'pavblog-category page-pavblog-category layout-boxed-lg': '' ;
+  global $address, $shop_name;
+  $shop_name = ot_get_option( 'shop_name');
+  $address = get_terms( 'cat-address', array(
+                  'order'=> 'DESC',
+                  'orderby' => 'none',
+                  'hide_empty' => 0,
+                  'parent' => 0
+              ) ); 
 ?>
 <body <?php body_class($home_cls.$catproduct_cls.$product_cls.$cat_cls.$cat_cls); ?>>
 <div class="row-offcanvas row-offcanvas-left">
@@ -97,70 +105,47 @@ wp_head(); ?>
     		  </div>
         </div>  
       </div>
-	<div class="header-contact">
-		<div class="provinces">
-        <a href="http://sango.com.vn" class="title_kho" target="_blank" title="JANHOME Hà Nội"><span class="dt">HÀ NỘI</span></a>
-        <ul class="cont_add">
-             <li>
-                <a>JANHOME <span style="color:#ff3333;font-weight:bold;">NGUYỄN XIỂN</span></a>
-                <div class="des_cont">Kho 28 - Ngõ 300 Nguyễn Xiển (đi vào 150m), Thanh Trì, Hà Nội <b><a style="color:#ff3333;font-weight:bold;" href="tel:0935962233">0935 96 22 33</a> </b></div>
-            </li>
-<hr>
-            <li>
-                <a>JANHOME <span style="color:#ff3333;font-weight:bold;">BẮC TỪ LIÊM</span></a>
-                <div class="des_cont">Kho 21 -49 Phạm Văn Đồng(Cạnh Bộ Công An), Bắc Từ Liêm, Hà Nội - <b><a style="color:#ff3333;font-weight:bold;" href="tel:0906302233">0906 30 22 33</a> </b></div>
-            </li>
-            <hr>
-            <li>
-                <a>JANHOME <span style="color:#ff3333;font-weight:bold;">LONG BIÊN</span></a>
-                <div class="des_cont">Số 3 Ngô Gia Tự, P Đức Giang, Q Long Biên, Hà Nội - <b><a style="color:#ff3333;font-weight:bold;" href="tel:0939632233">0939 63 22 33</a> </b></div>
-            </li>
-        </ul>
+    	<div class="header-contact">
+      <?php
+        foreach ($address as  $value) {
+          $show = get_field('show_address_header','cat-address_'.$value->term_id);
+          if($show == 'yes'){
+            echo '<div class="provinces"><a href="'.site_url().'" class="title_kho" target="_blank" title="'.$shop_name.' '.$value->name.'"><span class="dt" style="text-transform: uppercase;">'.$value->name.'</span></a><ul class="cont_add">';
+            $args = array(
+              'post_type' => 'address',
+              'posts_per_page' => -1,
+              'orderby' => 'date',
+              'post_status' => 'publish',
+              'tax_query' => array(
+                      array(
+                          'taxonomy' => 'cat-address',
+                          'field'    => 'term_id',
+                          'terms'    => $value->term_id
+                      ),
+                  ),
+              );              
+            $the_query = new WP_Query( $args );
+            if($the_query->have_posts() ) { 
+              while ( $the_query->have_posts() ) : $the_query->the_post(); 
+              $id = get_the_id();
+              $phone = get_field('address_phone',$id);
+              echo '<li>
+                      <a>'.$shop_name.' <span style="color:#ff3333;font-weight:bold;">'.get_the_title().'</span></a>
+                      <div class="des_cont">'.get_the_content().'<b></br><a style="color:#ff3333;font-weight:bold;" href="tel:'.$phone.'">ĐT: '.$phone.'</a> </b></div>
+                  </li>
+                  <hr>';
+              endwhile; wp_reset_postdata();  
+            }
+            echo '</ul></div>';
+          }
+        }
+      ?>
+      <div class="hotline hidden-xs">
+        <span class="hl">HOTLINE(miễn phí cước gọi): <a href="tel:<?php echo $phone_number_contact;?>" style="font-size: 40px; color:#F26B35;"><?php echo $phone_number_contact;?></a> </span><br>
+      </div>
+      <div class="hotline hidden-sm hidden-lg hidden-md hidden-sm" ><span class="hl">HOTLINE(miễn phí cước gọi): <a href="tel:<?php echo $phone_number_contact;?>" style="font-size: 40px; color:#F26B35;"><?php echo $phone_number_contact; ?></a> </span><br>
+      </div>
     </div>
-		<div class="provinces">
-        <a href="http://daklak.sango.com.vn" rel="nofollow" class="title_kho" target="_blank" title="JANHOME ĐẮK LẮK - BUÔN MA THUỘT"><span class="dt">ĐẮK LẮK</span></a>
-        <ul class="cont_add">
-             <li>
-                <a>JANHOME <span style="color:#ff3333;font-weight:bold;">ĐẮK LẮK</span></a>
-                <div class="des_cont"><b>Trung Tâm JANHOME:</b> 157 Phan Bội Châu, Thống Nhất, Buôn Ma Thuột, Đắk Lắk <b><a style="color:#ff3333;font-weight:bold;" href="tel:0901682233"> ĐT: 0901 68 22 33</a> </b></div>
-	</li>
-	<hr>
-	<li>
-	<div class="des_cont"><b>Trụ sở ĐKKD:</b> G28B Trần Khánh Dư, Tân Lợi, Buôn Ma Thuột, Đắk Lắk <b><a style="color:#ff3333;font-weight:bold;" href="tel:0901682233"> ĐT: 0901 68 22 33</a> </b></div>
-            </li>
-           
-            
-        </ul>
-    </div>
-    <div class="provinces">
-      <a href="http://haiduong.sango.com.vn" rel="nofollow" class="title_kho" target="_blank" title="JANHOME Hải Dương"><span class="dt">HẢI DƯƠNG</span></a>
-      <ul class="cont_add">
-        <li>
-        <a>JANHOME <span style="color:#ff3333;font-weight:bold;">HẢI DƯƠNG</span></a>
-        <div class="des_cont"><b>JANHOME Hải Dương:</b> 377 Thanh Niên, Thành Phố Hải Dương<b><a style="color:#ff3333;font-weight:bold;" href="tel:0975922233"> ĐT: 0975 92 22 33</a> </b></div>
-        </li>		
-      </ul>
-    </div>
-    <div class="provinces">
-      <a href="#" rel="nofollow" class="title_kho" target="_blank" title="JANHOME Thái Nguyên"><span class="dt">THÁI NGUYÊN</span></a>
-      <ul class="cont_add">
-        <li>
-        <a href="http://phoyen.sango.com.vn">JANHOME <span style="color:#ff3333;font-weight:bold;">PHỔ YÊN</span></a>
-        <div class="des_cont"><b>JANHOME PHỔ YÊN:</b> NAM TIẾN, PHỔ YÊN, THÁI NGUYÊN<b><a style="color:#ff3333;font-weight:bold;" href="tel:0972432233"> ĐT: 0972 43 22 33</a> </b></div>
-        </li>				
-      </ul>
-    </div>
-
-<div class="hotline hidden-xs"><span class="hl">HOTLINE(miễn phí cước gọi): <a href="tel:1800 0022" style="font-size: 40px; color:#F26B35;">1800 0022</a> </span><br>
-
-</div>
-
-<div class="hotline hidden-sm hidden-lg hidden-md hidden-sm" ><span class="hl">HOTLINE(miễn phí cước gọi): <a href="tel:<?php echo $phone_number_contact;?>" style="font-size: 40px; color:#F26B35;"><?php echo $phone_number_contact; ?></a> </span><br>
-
-
-</div>
-
-</div>
     </div>
   </div>
   
